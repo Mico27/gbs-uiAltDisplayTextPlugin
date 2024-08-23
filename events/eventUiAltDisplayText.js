@@ -51,7 +51,7 @@ export const compile = (input, helpers) => {
     inputTexts.forEach((inputText, textIndex) => {
       const warped_x = input.x % 32;
 	  const warped_y = input.y % 32;
-	  _loadStructuredText(`\\003\\${decOct(warped_x + 2)}\\${decOct(warped_y + 2)}${inputText}`);	  	  
+	  _loadStructuredText(`\\003\\${decOct(warped_x + 1)}\\${decOct(warped_y + 1)}${inputText}`);	  	  
 	  _callNative("ui_alt_display_text"); 	  
     });
     _addNL();  

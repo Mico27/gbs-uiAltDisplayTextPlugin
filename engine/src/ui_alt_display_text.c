@@ -36,8 +36,6 @@ inline void ui_alt_set_tile(UBYTE * addr, UBYTE tile) {
         set_vram_byte(addr, overlay_priority | (text_palette & 0x07u));
         VBK_REG = 0;
     }
-#else
-    bank;
 #endif
     set_vram_byte(addr, tile);
 }
@@ -129,7 +127,9 @@ UBYTE ui_alt_draw_text_buffer_char(void) BANKED {
                 ui_alt_dest_ptr = ui_alt_dest_base += 32u;
                 break;
             case 0x0b:
+			#ifdef CGB
                 text_palette = (*++ui_alt_text_ptr & 0x07);
+			#endif
                 break;
             case '\r':  // 0x0d
                 // line feed
@@ -151,6 +151,15 @@ UBYTE ui_alt_draw_text_buffer_char(void) BANKED {
 }
 
 void ui_alt_display_text(SCRIPT_CTX * THIS) OLDCALL BANKED {
+	THIS;
+    ui_alt_text_drawn = FALSE;
+    // all drawn - nothing to do
+	do {
+		ui_alt_draw_text_buffer_char();		
+	} while (!ui_alt_text_drawn);    
+}
+
+void ui_alt_display_dialogue(SCRIPT_CTX * THIS) OLDCALL BANKED {
 	THIS;
 	INPUT_RESET;
     ui_alt_text_drawn = text_ff = FALSE;
