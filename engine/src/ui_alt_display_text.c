@@ -132,8 +132,20 @@ UBYTE ui_alt_draw_text_buffer_char(void) BANKED {
 			#endif
                 break;
             case '\r':  // 0x0d
-                // line feed
-                ui_alt_dest_ptr = ui_alt_dest_base += 32u;
+				 // line feed
+                if ((ui_alt_dest_ptr + 32u) > (UBYTE *)((((UWORD)text_scroll_addr + ((UWORD)text_scroll_height << 5)) & 0xFFE0) - 1)) {
+                    scroll_rect(text_scroll_addr, text_scroll_width, text_scroll_height, text_scroll_fill);
+#ifdef CGB
+                    if (_is_CGB) {
+                        VBK_REG = 1;
+                        scroll_rect(text_scroll_addr, text_scroll_width, text_scroll_height, overlay_priority | (text_palette & 0x07u));
+                        VBK_REG = 0;
+                    }
+#endif
+                    ui_alt_dest_ptr = ui_alt_dest_base;
+                } else {
+                    ui_alt_dest_ptr = ui_alt_dest_base += 32u;
+                }
                 break;
             case 0x05:
                 // escape symbol
@@ -141,6 +153,10 @@ UBYTE ui_alt_draw_text_buffer_char(void) BANKED {
                 // fall down to default
             default:
 				UBYTE tile = ReadBankedUBYTE(char_tileset_mapping + (*ui_alt_text_ptr) , BANK(char_tileset_mapping));
+				//warp around of vram instead of next line
+				if (((UBYTE)ui_alt_dest_ptr >> 5) != ((UBYTE)ui_alt_dest_base >> 5)) {
+					ui_alt_dest_ptr -= 32u;
+				}
                 ui_alt_set_tile(ui_alt_dest_ptr, tile);
 				ui_alt_dest_ptr++;
                 ui_alt_text_ptr++;
