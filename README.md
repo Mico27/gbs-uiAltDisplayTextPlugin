@@ -6,5 +6,6 @@ You can configure the mapping between Ascci characters and VRAM tileset tile ids
 uiAltDisplayTextPlugin\engine\src\data\char_tileset_mapping.c
 
 You must load your "fonts" in VRAM tileset manualy before so that your mapping match the tiles you want to display.
+Alternatively you can just have the font part of the common tilset.
 (this event if from the plugin https://github.com/Mico27/gbs-loadTilesetExPlugin)
 ![image](https://github.com/user-attachments/assets/be804b62-c2a1-4c6b-970a-754cd5997386)
