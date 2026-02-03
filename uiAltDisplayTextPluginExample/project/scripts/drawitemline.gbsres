@@ -1,0 +1,449 @@
+{
+  "_resourceType": "script",
+  "id": "59303023-e289-4120-a236-44247b93b588",
+  "name": "DrawItemLine",
+  "description": "",
+  "variables": {},
+  "actors": {},
+  "symbol": "script_1",
+  "script": [
+    {
+      "command": "EVENT_SWITCH",
+      "args": {
+        "variable": "0",
+        "choices": 16,
+        "__collapseCase0": false,
+        "__collapseCase1": false,
+        "__collapseCase2": false,
+        "__collapseCase3": false,
+        "__collapseCase4": false,
+        "__collapseCase5": false,
+        "__collapseCase6": false,
+        "__collapseCase7": false,
+        "__collapseCase8": false,
+        "__collapseCase9": false,
+        "__collapseCase10": false,
+        "__collapseCase11": false,
+        "__collapseCase12": false,
+        "__collapseCase13": false,
+        "__collapseCase14": false,
+        "__collapseCase15": false,
+        "__collapseElse": false
+      },
+      "children": {
+        "true0": [
+          {
+            "command": "EVENT_GBVM_SCRIPT",
+            "args": {
+              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xApple\"",
+              "references": [
+                {
+                  "type": "variable",
+                  "id": "1"
+                },
+                {
+                  "type": "variable",
+                  "id": "2"
+                },
+                {
+                  "type": "variable",
+                  "id": "19"
+                }
+              ],
+              "__collapse": false
+            },
+            "id": "f96e8f3f-61a5-42a1-bba3-76ad0b6037b7"
+          }
+        ],
+        "true1": [
+          {
+            "command": "EVENT_GBVM_SCRIPT",
+            "args": {
+              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xBanana\"",
+              "references": [
+                {
+                  "type": "variable",
+                  "id": "1"
+                },
+                {
+                  "type": "variable",
+                  "id": "2"
+                },
+                {
+                  "type": "variable",
+                  "id": "19"
+                }
+              ],
+              "__collapse": false
+            },
+            "id": "7a3a72cc-9f87-4b8f-9adb-6a0ee90144bb"
+          }
+        ],
+        "true2": [
+          {
+            "command": "EVENT_GBVM_SCRIPT",
+            "args": {
+              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xBluebery\"",
+              "references": [
+                {
+                  "type": "variable",
+                  "id": "1"
+                },
+                {
+                  "type": "variable",
+                  "id": "2"
+                },
+                {
+                  "type": "variable",
+                  "id": "19"
+                }
+              ],
+              "__collapse": false
+            },
+            "id": "40a8325f-4ada-43fa-823c-2d34d809e45d"
+          }
+        ],
+        "true3": [
+          {
+            "command": "EVENT_GBVM_SCRIPT",
+            "args": {
+              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xBroccoli\"",
+              "references": [
+                {
+                  "type": "variable",
+                  "id": "1"
+                },
+                {
+                  "type": "variable",
+                  "id": "2"
+                },
+                {
+                  "type": "variable",
+                  "id": "19"
+                }
+              ],
+              "__collapse": false
+            },
+            "id": "9555c54b-602f-4a8a-a57a-e0809be76319"
+          }
+        ],
+        "true4": [
+          {
+            "command": "EVENT_GBVM_SCRIPT",
+            "args": {
+              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xCabbage\"",
+              "references": [
+                {
+                  "type": "variable",
+                  "id": "1"
+                },
+                {
+                  "type": "variable",
+                  "id": "2"
+                },
+                {
+                  "type": "variable",
+                  "id": "19"
+                }
+              ],
+              "__collapse": false
+            },
+            "id": "167096fe-53fb-4096-a1b7-a72bbac5b9a3"
+          }
+        ],
+        "true5": [
+          {
+            "command": "EVENT_GBVM_SCRIPT",
+            "args": {
+              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xCarrot\"",
+              "references": [
+                {
+                  "type": "variable",
+                  "id": "1"
+                },
+                {
+                  "type": "variable",
+                  "id": "2"
+                },
+                {
+                  "type": "variable",
+                  "id": "19"
+                }
+              ],
+              "__collapse": false
+            },
+            "id": "87589ca3-cce2-407b-abf0-78c152cc6b90"
+          }
+        ],
+        "true6": [
+          {
+            "command": "EVENT_GBVM_SCRIPT",
+            "args": {
+              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xCucumber\"",
+              "references": [
+                {
+                  "type": "variable",
+                  "id": "1"
+                },
+                {
+                  "type": "variable",
+                  "id": "2"
+                },
+                {
+                  "type": "variable",
+                  "id": "19"
+                }
+              ],
+              "__collapse": false
+            },
+            "id": "419f85af-e07c-4565-9743-6a78e2618ef6"
+          }
+        ],
+        "true7": [
+          {
+            "command": "EVENT_GBVM_SCRIPT",
+            "args": {
+              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xDate\"",
+              "references": [
+                {
+                  "type": "variable",
+                  "id": "1"
+                },
+                {
+                  "type": "variable",
+                  "id": "2"
+                },
+                {
+                  "type": "variable",
+                  "id": "19"
+                }
+              ],
+              "__collapse": false
+            },
+            "id": "64bdee31-c0aa-4009-a0ff-1fc494e4b9e8"
+          }
+        ],
+        "true8": [
+          {
+            "command": "EVENT_GBVM_SCRIPT",
+            "args": {
+              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xEggplant\"",
+              "references": [
+                {
+                  "type": "variable",
+                  "id": "1"
+                },
+                {
+                  "type": "variable",
+                  "id": "2"
+                },
+                {
+                  "type": "variable",
+                  "id": "19"
+                }
+              ],
+              "__collapse": false
+            },
+            "id": "6d89dd8f-ef3a-48bf-a13b-c864e32108dc"
+          }
+        ],
+        "true9": [
+          {
+            "command": "EVENT_GBVM_SCRIPT",
+            "args": {
+              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xFennel\"",
+              "references": [
+                {
+                  "type": "variable",
+                  "id": "1"
+                },
+                {
+                  "type": "variable",
+                  "id": "2"
+                },
+                {
+                  "type": "variable",
+                  "id": "19"
+                }
+              ],
+              "__collapse": false
+            },
+            "id": "d70500bc-a9b7-4ca5-935f-18116c0925c8"
+          }
+        ],
+        "true10": [
+          {
+            "command": "EVENT_GBVM_SCRIPT",
+            "args": {
+              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xGarlic\"",
+              "references": [
+                {
+                  "type": "variable",
+                  "id": "1"
+                },
+                {
+                  "type": "variable",
+                  "id": "2"
+                },
+                {
+                  "type": "variable",
+                  "id": "19"
+                }
+              ],
+              "__collapse": false
+            },
+            "id": "6bd46156-bcd2-4342-a6fa-4b6945772d28"
+          }
+        ],
+        "true11": [
+          {
+            "command": "EVENT_GBVM_SCRIPT",
+            "args": {
+              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xGrape\"",
+              "references": [
+                {
+                  "type": "variable",
+                  "id": "1"
+                },
+                {
+                  "type": "variable",
+                  "id": "2"
+                },
+                {
+                  "type": "variable",
+                  "id": "19"
+                }
+              ],
+              "__collapse": false
+            },
+            "id": "aa7d4b19-4416-4482-bb86-5e8b4a8a1550"
+          }
+        ],
+        "true12": [
+          {
+            "command": "EVENT_GBVM_SCRIPT",
+            "args": {
+              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xHoneydew\"",
+              "references": [
+                {
+                  "type": "variable",
+                  "id": "1"
+                },
+                {
+                  "type": "variable",
+                  "id": "2"
+                },
+                {
+                  "type": "variable",
+                  "id": "19"
+                }
+              ],
+              "__collapse": false
+            },
+            "id": "697f6316-04f0-48d8-8fa7-65259c90c4fe"
+          }
+        ],
+        "true13": [
+          {
+            "command": "EVENT_GBVM_SCRIPT",
+            "args": {
+              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xJackfrut\"",
+              "references": [
+                {
+                  "type": "variable",
+                  "id": "1"
+                },
+                {
+                  "type": "variable",
+                  "id": "2"
+                },
+                {
+                  "type": "variable",
+                  "id": "19"
+                }
+              ],
+              "__collapse": false
+            },
+            "id": "5f18fcf8-b5f6-4e29-8f58-96c5311d76a3"
+          }
+        ],
+        "true14": [
+          {
+            "command": "EVENT_GBVM_SCRIPT",
+            "args": {
+              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xKiwi\"",
+              "references": [
+                {
+                  "type": "variable",
+                  "id": "1"
+                },
+                {
+                  "type": "variable",
+                  "id": "2"
+                },
+                {
+                  "type": "variable",
+                  "id": "19"
+                }
+              ],
+              "__collapse": false
+            },
+            "id": "d3961935-b444-4fd7-9a2e-a1ae21bf5c48"
+          }
+        ],
+        "true15": [
+          {
+            "command": "EVENT_GBVM_SCRIPT",
+            "args": {
+              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xLeek\"",
+              "references": [
+                {
+                  "type": "variable",
+                  "id": "1"
+                },
+                {
+                  "type": "variable",
+                  "id": "2"
+                },
+                {
+                  "type": "variable",
+                  "id": "19"
+                }
+              ],
+              "__collapse": false
+            },
+            "id": "624dee68-2bb9-4be7-bd0d-621472b15dff"
+          }
+        ],
+        "false": [
+          {
+            "command": "EVENT_GBVM_SCRIPT",
+            "args": {
+              "script": "VM_LOAD_TEXT 2\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.asciz \"\\003%c%cCancel\"",
+              "references": [
+                {
+                  "type": "variable",
+                  "id": "1"
+                },
+                {
+                  "type": "variable",
+                  "id": "2"
+                }
+              ],
+              "__collapse": false
+            },
+            "id": "67e570a2-ef70-4e1a-a140-0250e75721ba"
+          }
+        ]
+      },
+      "id": "9dba3939-fe4a-4778-b7b3-e80755864304"
+    },
+    {
+      "command": "EVENT_GBVM_SCRIPT",
+      "args": {
+        "script": "VM_CALL_NATIVE b_ui_alt_display_text, _ui_alt_display_text"
+      },
+      "id": "570165d3-ce58-454b-a142-855bda51fcd0"
+    }
+  ]
+}

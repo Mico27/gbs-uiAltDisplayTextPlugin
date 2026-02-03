@@ -1,0 +1,11 @@
+{
+  "_resourceType": "tileset",
+  "id": "d540bf77-4936-4752-ab6e-da981968cdd2",
+  "name": "font_tileset",
+  "symbol": "tileset_font_tileset",
+  "width": 16,
+  "height": 5,
+  "imageWidth": 128,
+  "imageHeight": 40,
+  "filename": "font_tileset.png"
+}

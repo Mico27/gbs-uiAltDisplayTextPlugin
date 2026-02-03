@@ -1,0 +1,116 @@
+{
+  "_resourceType": "variables",
+  "variables": [
+    {
+      "id": "0",
+      "name": "Item_Id",
+      "symbol": "var_item_id"
+    },
+    {
+      "id": "1",
+      "name": "Text_Pos_X",
+      "symbol": "var_text_pos_x"
+    },
+    {
+      "id": "2",
+      "name": "Text_Pos_Y",
+      "symbol": "var_text_pos_y"
+    },
+    {
+      "id": "3",
+      "name": "ItemSlot_1",
+      "symbol": "var_itemslot_1"
+    },
+    {
+      "id": "4",
+      "name": "ItemSlot_2",
+      "symbol": "var_itemslot_2"
+    },
+    {
+      "id": "5",
+      "name": "ItemSlot_3",
+      "symbol": "var_itemslot_3"
+    },
+    {
+      "id": "6",
+      "name": "ItemSlot_4",
+      "symbol": "var_itemslot_4"
+    },
+    {
+      "id": "7",
+      "name": "ItemSlot_5",
+      "symbol": "var_itemslot_5"
+    },
+    {
+      "id": "8",
+      "name": "ItemSlot_6",
+      "symbol": "var_itemslot_6"
+    },
+    {
+      "id": "9",
+      "name": "ItemSlot_7",
+      "symbol": "var_itemslot_7"
+    },
+    {
+      "id": "10",
+      "name": "ItemSlot_8",
+      "symbol": "var_itemslot_8"
+    },
+    {
+      "id": "11",
+      "name": "ItemSlot_9",
+      "symbol": "var_itemslot_9"
+    },
+    {
+      "id": "12",
+      "name": "ItemSlot_10",
+      "symbol": "var_itemslot_10"
+    },
+    {
+      "id": "13",
+      "name": "ItemSlot_11",
+      "symbol": "var_itemslot_11"
+    },
+    {
+      "id": "14",
+      "name": "ItemSlot_12",
+      "symbol": "var_itemslot_12"
+    },
+    {
+      "id": "15",
+      "name": "ItemSlot_13",
+      "symbol": "var_itemslot_13"
+    },
+    {
+      "id": "16",
+      "name": "ItemSlot_14",
+      "symbol": "var_itemslot_14"
+    },
+    {
+      "id": "17",
+      "name": "ItemSlot_15",
+      "symbol": "var_itemslot_15"
+    },
+    {
+      "id": "18",
+      "name": "ItemSlot_16",
+      "symbol": "var_itemslot_16"
+    },
+    {
+      "id": "19",
+      "name": "Item_Count",
+      "symbol": "var_item_count"
+    },
+    {
+      "id": "20",
+      "name": "ItemSlot_Idx",
+      "symbol": "var_itemslot_idx"
+    },
+    {
+      "id": "21",
+      "name": "Cursor_Idx",
+      "symbol": "var_cursor_idx"
+    }
+  ],
+  "constants": []
+}
