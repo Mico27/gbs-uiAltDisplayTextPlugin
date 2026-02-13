@@ -110,6 +110,26 @@
       "id": "21",
       "name": "Cursor_Idx",
       "symbol": "var_cursor_idx"
+    },
+    {
+      "id": "22",
+      "name": "Text_Length",
+      "symbol": "var_text_length"
+    },
+    {
+      "id": "23",
+      "name": "IsItemSwapping",
+      "symbol": "var_isitemswapping"
+    },
+    {
+      "id": "24",
+      "name": "SwappedSlotIdx",
+      "symbol": "var_swappedslotidx"
+    },
+    {
+      "id": "25",
+      "name": "TempVariable",
+      "symbol": "var_tempvariable"
     }
   ],
   "constants": []

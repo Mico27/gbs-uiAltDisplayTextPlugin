@@ -8,6 +8,22 @@
   "symbol": "script_1",
   "script": [
     {
+      "command": "EVENT_UI_LOAD_TEXT",
+      "args": {
+        "text": "\\003%c$01$%c$02$%D2$19$x",
+        "__collapse": true
+      },
+      "id": "94fd5c41-d6d9-4ec0-9d23-7541fe6f9f24"
+    },
+    {
+      "command": "EVENT_UI_CHANGE_LOAD_TEXT_MODE",
+      "args": {
+        "load_text_mode": "1",
+        "__collapse": true
+      },
+      "id": "176607cb-293d-4175-add6-9d8ed77d7e85"
+    },
+    {
       "command": "EVENT_SWITCH",
       "args": {
         "variable": "0",
@@ -28,422 +44,197 @@
         "__collapseCase13": false,
         "__collapseCase14": false,
         "__collapseCase15": false,
-        "__collapseElse": false
+        "__collapseElse": false,
+        "__collapse": false
       },
       "children": {
         "true0": [
           {
-            "command": "EVENT_GBVM_SCRIPT",
+            "command": "EVENT_UI_LOAD_TEXT",
             "args": {
-              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xApple\"",
-              "references": [
-                {
-                  "type": "variable",
-                  "id": "1"
-                },
-                {
-                  "type": "variable",
-                  "id": "2"
-                },
-                {
-                  "type": "variable",
-                  "id": "19"
-                }
-              ],
-              "__collapse": false
+              "text": "Apple   ",
+              "__collapse": true
             },
-            "id": "f96e8f3f-61a5-42a1-bba3-76ad0b6037b7"
+            "id": "ea7c418d-3fa4-45c0-9833-bb19f19e11cb"
           }
         ],
         "true1": [
           {
-            "command": "EVENT_GBVM_SCRIPT",
+            "command": "EVENT_UI_LOAD_TEXT",
             "args": {
-              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xBanana\"",
-              "references": [
-                {
-                  "type": "variable",
-                  "id": "1"
-                },
-                {
-                  "type": "variable",
-                  "id": "2"
-                },
-                {
-                  "type": "variable",
-                  "id": "19"
-                }
-              ],
-              "__collapse": false
+              "text": "Banana  ",
+              "__collapse": true
             },
-            "id": "7a3a72cc-9f87-4b8f-9adb-6a0ee90144bb"
+            "id": "08bd2503-f1d9-4018-a6a3-89675ef5c218"
           }
         ],
         "true2": [
           {
-            "command": "EVENT_GBVM_SCRIPT",
+            "command": "EVENT_UI_LOAD_TEXT",
             "args": {
-              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xBluebery\"",
-              "references": [
-                {
-                  "type": "variable",
-                  "id": "1"
-                },
-                {
-                  "type": "variable",
-                  "id": "2"
-                },
-                {
-                  "type": "variable",
-                  "id": "19"
-                }
-              ],
-              "__collapse": false
+              "text": "Bluebery",
+              "__collapse": true
             },
-            "id": "40a8325f-4ada-43fa-823c-2d34d809e45d"
+            "id": "2a3102e8-918b-46f1-bdaf-ecdff0b88353"
           }
         ],
         "true3": [
           {
-            "command": "EVENT_GBVM_SCRIPT",
+            "command": "EVENT_UI_LOAD_TEXT",
             "args": {
-              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xBroccoli\"",
-              "references": [
-                {
-                  "type": "variable",
-                  "id": "1"
-                },
-                {
-                  "type": "variable",
-                  "id": "2"
-                },
-                {
-                  "type": "variable",
-                  "id": "19"
-                }
-              ],
-              "__collapse": false
+              "text": "Broccoli",
+              "__collapse": true
             },
-            "id": "9555c54b-602f-4a8a-a57a-e0809be76319"
+            "id": "a419993d-e793-46a6-8029-799c4c5b51c8"
           }
         ],
         "true4": [
           {
-            "command": "EVENT_GBVM_SCRIPT",
+            "command": "EVENT_UI_LOAD_TEXT",
             "args": {
-              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xCabbage\"",
-              "references": [
-                {
-                  "type": "variable",
-                  "id": "1"
-                },
-                {
-                  "type": "variable",
-                  "id": "2"
-                },
-                {
-                  "type": "variable",
-                  "id": "19"
-                }
-              ],
-              "__collapse": false
+              "text": "Cabbage ",
+              "__collapse": true
             },
-            "id": "167096fe-53fb-4096-a1b7-a72bbac5b9a3"
+            "id": "c2d28aa5-9b18-44b6-adb8-04d211e7d682"
           }
         ],
         "true5": [
           {
-            "command": "EVENT_GBVM_SCRIPT",
+            "command": "EVENT_UI_LOAD_TEXT",
             "args": {
-              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xCarrot\"",
-              "references": [
-                {
-                  "type": "variable",
-                  "id": "1"
-                },
-                {
-                  "type": "variable",
-                  "id": "2"
-                },
-                {
-                  "type": "variable",
-                  "id": "19"
-                }
-              ],
-              "__collapse": false
+              "text": "Carrot  ",
+              "__collapse": true
             },
-            "id": "87589ca3-cce2-407b-abf0-78c152cc6b90"
+            "id": "daec58f1-e2c3-4fe6-95cb-8139d7d4be0e"
           }
         ],
         "true6": [
           {
-            "command": "EVENT_GBVM_SCRIPT",
+            "command": "EVENT_UI_LOAD_TEXT",
             "args": {
-              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xCucumber\"",
-              "references": [
-                {
-                  "type": "variable",
-                  "id": "1"
-                },
-                {
-                  "type": "variable",
-                  "id": "2"
-                },
-                {
-                  "type": "variable",
-                  "id": "19"
-                }
-              ],
-              "__collapse": false
+              "text": "Cucumber",
+              "__collapse": true
             },
-            "id": "419f85af-e07c-4565-9743-6a78e2618ef6"
+            "id": "3739295b-4a96-419f-a93f-040135bf4088"
           }
         ],
         "true7": [
           {
-            "command": "EVENT_GBVM_SCRIPT",
+            "command": "EVENT_UI_LOAD_TEXT",
             "args": {
-              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xDate\"",
-              "references": [
-                {
-                  "type": "variable",
-                  "id": "1"
-                },
-                {
-                  "type": "variable",
-                  "id": "2"
-                },
-                {
-                  "type": "variable",
-                  "id": "19"
-                }
-              ],
-              "__collapse": false
+              "text": "Date    ",
+              "__collapse": true
             },
-            "id": "64bdee31-c0aa-4009-a0ff-1fc494e4b9e8"
+            "id": "6ef996fe-d26c-41e5-953b-b6b594369f38"
           }
         ],
         "true8": [
           {
-            "command": "EVENT_GBVM_SCRIPT",
+            "command": "EVENT_UI_LOAD_TEXT",
             "args": {
-              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xEggplant\"",
-              "references": [
-                {
-                  "type": "variable",
-                  "id": "1"
-                },
-                {
-                  "type": "variable",
-                  "id": "2"
-                },
-                {
-                  "type": "variable",
-                  "id": "19"
-                }
-              ],
-              "__collapse": false
+              "text": "Eggplant",
+              "__collapse": true
             },
-            "id": "6d89dd8f-ef3a-48bf-a13b-c864e32108dc"
+            "id": "e11295a9-caf2-42b2-bc9f-a6629045ed5f"
           }
         ],
         "true9": [
           {
-            "command": "EVENT_GBVM_SCRIPT",
+            "command": "EVENT_UI_LOAD_TEXT",
             "args": {
-              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xFennel\"",
-              "references": [
-                {
-                  "type": "variable",
-                  "id": "1"
-                },
-                {
-                  "type": "variable",
-                  "id": "2"
-                },
-                {
-                  "type": "variable",
-                  "id": "19"
-                }
-              ],
-              "__collapse": false
+              "text": "Fennel  ",
+              "__collapse": true
             },
-            "id": "d70500bc-a9b7-4ca5-935f-18116c0925c8"
+            "id": "6f28717d-e095-4d00-9fc7-208058a7ade3"
           }
         ],
         "true10": [
           {
-            "command": "EVENT_GBVM_SCRIPT",
+            "command": "EVENT_UI_LOAD_TEXT",
             "args": {
-              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xGarlic\"",
-              "references": [
-                {
-                  "type": "variable",
-                  "id": "1"
-                },
-                {
-                  "type": "variable",
-                  "id": "2"
-                },
-                {
-                  "type": "variable",
-                  "id": "19"
-                }
-              ],
-              "__collapse": false
+              "text": "Garlic  ",
+              "__collapse": true
             },
-            "id": "6bd46156-bcd2-4342-a6fa-4b6945772d28"
+            "id": "51dc11a5-de72-49b7-bd26-a7220857342e"
           }
         ],
         "true11": [
           {
-            "command": "EVENT_GBVM_SCRIPT",
+            "command": "EVENT_UI_LOAD_TEXT",
             "args": {
-              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xGrape\"",
-              "references": [
-                {
-                  "type": "variable",
-                  "id": "1"
-                },
-                {
-                  "type": "variable",
-                  "id": "2"
-                },
-                {
-                  "type": "variable",
-                  "id": "19"
-                }
-              ],
-              "__collapse": false
+              "text": "Grape   ",
+              "__collapse": true
             },
-            "id": "aa7d4b19-4416-4482-bb86-5e8b4a8a1550"
+            "id": "b6a0072d-dab9-4a0d-9a30-a5c19af6134c"
           }
         ],
         "true12": [
           {
-            "command": "EVENT_GBVM_SCRIPT",
+            "command": "EVENT_UI_LOAD_TEXT",
             "args": {
-              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xHoneydew\"",
-              "references": [
-                {
-                  "type": "variable",
-                  "id": "1"
-                },
-                {
-                  "type": "variable",
-                  "id": "2"
-                },
-                {
-                  "type": "variable",
-                  "id": "19"
-                }
-              ],
-              "__collapse": false
+              "text": "Honeydew",
+              "__collapse": true
             },
-            "id": "697f6316-04f0-48d8-8fa7-65259c90c4fe"
+            "id": "51095afc-8ba1-42e7-9429-e4d342c0d0d4"
           }
         ],
         "true13": [
           {
-            "command": "EVENT_GBVM_SCRIPT",
+            "command": "EVENT_UI_LOAD_TEXT",
             "args": {
-              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xJackfrut\"",
-              "references": [
-                {
-                  "type": "variable",
-                  "id": "1"
-                },
-                {
-                  "type": "variable",
-                  "id": "2"
-                },
-                {
-                  "type": "variable",
-                  "id": "19"
-                }
-              ],
-              "__collapse": false
+              "text": "Jackfrut",
+              "__collapse": true
             },
-            "id": "5f18fcf8-b5f6-4e29-8f58-96c5311d76a3"
+            "id": "f5c9027e-3ce4-4d21-9f46-0b2a7e3eef0c"
           }
         ],
         "true14": [
           {
-            "command": "EVENT_GBVM_SCRIPT",
+            "command": "EVENT_UI_LOAD_TEXT",
             "args": {
-              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xKiwi\"",
-              "references": [
-                {
-                  "type": "variable",
-                  "id": "1"
-                },
-                {
-                  "type": "variable",
-                  "id": "2"
-                },
-                {
-                  "type": "variable",
-                  "id": "19"
-                }
-              ],
-              "__collapse": false
+              "text": "Kiwi    ",
+              "__collapse": true
             },
-            "id": "d3961935-b444-4fd7-9a2e-a1ae21bf5c48"
+            "id": "2966b933-d2fa-48f9-8c62-be1b81cd10ff"
           }
         ],
         "true15": [
           {
-            "command": "EVENT_GBVM_SCRIPT",
+            "command": "EVENT_UI_LOAD_TEXT",
             "args": {
-              "script": "VM_LOAD_TEXT 3\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.dw VAR_ITEM_COUNT\n.asciz \"\\003%c%c%D2xLeek\"",
-              "references": [
-                {
-                  "type": "variable",
-                  "id": "1"
-                },
-                {
-                  "type": "variable",
-                  "id": "2"
-                },
-                {
-                  "type": "variable",
-                  "id": "19"
-                }
-              ],
-              "__collapse": false
+              "text": "Leek    ",
+              "__collapse": true
             },
-            "id": "624dee68-2bb9-4be7-bd0d-621472b15dff"
+            "id": "1e4d2b82-a8dd-47e7-9513-9f598f600e7d"
           }
         ],
         "false": [
           {
-            "command": "EVENT_GBVM_SCRIPT",
+            "command": "EVENT_UI_LOAD_TEXT",
             "args": {
-              "script": "VM_LOAD_TEXT 2\n.dw VAR_TEXT_POS_X\n.dw VAR_TEXT_POS_Y\n.asciz \"\\003%c%cCancel\"",
-              "references": [
-                {
-                  "type": "variable",
-                  "id": "1"
-                },
-                {
-                  "type": "variable",
-                  "id": "2"
-                }
-              ],
-              "__collapse": false
+              "text": "\\003%c$01$%c$02$Cancel     ",
+              "__collapse": true
             },
-            "id": "67e570a2-ef70-4e1a-a140-0250e75721ba"
+            "id": "c95ad703-2b5f-4107-b6ac-9f3a1a272ee0"
           }
         ]
       },
       "id": "9dba3939-fe4a-4778-b7b3-e80755864304"
     },
     {
-      "command": "EVENT_GBVM_SCRIPT",
+      "command": "EVENT_UI_CHANGE_LOAD_TEXT_MODE",
       "args": {
-        "script": "VM_CALL_NATIVE b_ui_alt_display_text, _ui_alt_display_text"
+        "load_text_mode": "0",
+        "__collapse": true
       },
-      "id": "570165d3-ce58-454b-a142-855bda51fcd0"
+      "id": "3760d489-fe5e-45f3-a103-c65c837d06d8"
+    },
+    {
+      "command": "EVENT_UI_ALT_DISPLAY_LOADED_TEXT",
+      "args": {
+        "__collapse": true
+      },
+      "id": "7f323a9c-a0db-4af1-89f8-af06bb6f853c"
     }
   ]
 }

@@ -1,0 +1,63 @@
+{
+  "_resourceType": "script",
+  "id": "9edddd7c-81d0-49e8-96dc-0582fb73d420",
+  "name": "AddItemsToSlot",
+  "description": "",
+  "variables": {
+    "V1": {
+      "id": "V1",
+      "name": "ItemAmountAdded",
+      "passByReference": false
+    }
+  },
+  "actors": {},
+  "symbol": "script_6",
+  "script": [
+    {
+      "command": "EVENT_CALL_CUSTOM_EVENT",
+      "args": {
+        "customEventId": "715d31e5-d0ee-414e-a20e-2e7873598419",
+        "$variable[V0]$": {
+          "type": "number",
+          "value": 1
+        },
+        "__collapse": false
+      },
+      "id": "cc0a9ee8-68d6-4104-9ca5-76ad5d318c4d"
+    },
+    {
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "expression",
+          "value": "$00$ != 0"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "19",
+              "value": {
+                "type": "expression",
+                "value": "min(99, $19$ + $V1$)"
+              }
+            },
+            "id": "1b1d7e73-3387-48fe-943a-f504924c4e9e"
+          },
+          {
+            "command": "EVENT_CALL_CUSTOM_EVENT",
+            "args": {
+              "customEventId": "46ddb76a-4d97-4d7b-8397-0c8b01457d04"
+            },
+            "id": "b297b8b4-40d4-4d83-acd8-71dcdf09a476"
+          }
+        ],
+        "false": []
+      },
+      "id": "ba08d4e0-20af-4258-8015-d4718cda73cc"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "_resourceType": "actor",
+  "id": "1de5afac-e76a-4a5d-a303-f3d28df351e5",
+  "name": "BlinkingArrow",
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "11b5452b-187c-43a3-afb1-a1f4f74ffda2",
+  "prefabId": "",
+  "direction": "right",
+  "moveSpeed": 1,
+  "animSpeed": 3,
+  "paletteId": "",
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "symbol": "actor_1",
+  "script": [],
+  "startScript": [
+    {
+      "command": "EVENT_ACTOR_HIDE",
+      "args": {
+        "actorId": "$self$",
+        "__collapse": true
+      },
+      "id": "0b40df67-dacc-4b6d-91f7-0a2e17323df2"
+    },
+    {
+      "command": "EVENT_ACTOR_SET_STATE",
+      "args": {
+        "actorId": "$self$",
+        "spriteStateId": "Blinking",
+        "loopAnim": true,
+        "__collapse": true
+      },
+      "id": "5fad7791-5c77-4115-bf32-bb100b127073"
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": [],
+  "coordinateType": "tiles",
+  "x": 0,
+  "y": 1,
+  "_index": 1
+}

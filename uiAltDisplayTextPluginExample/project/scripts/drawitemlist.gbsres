@@ -56,12 +56,12 @@
       "id": "14af0ddd-4e69-4a84-967d-5bf83e5637f7"
     },
     {
-      "command": "EVENT_GBVM_SCRIPT",
+      "command": "EVENT_UI_CHANGE_TEXT_LAYER",
       "args": {
-        "script": "VM_SWITCH_TEXT_LAYER .TEXT_LAYER_BKG",
+        "location": "background",
         "__collapse": true
       },
-      "id": "fa8b473a-4d7b-4822-beb0-1c0c5a15f76d"
+      "id": "415192c6-be59-4fc5-aacc-91e47e5fd22b"
     },
     {
       "command": "EVENT_LOOP_WHILE",
@@ -112,6 +112,14 @@
         ]
       },
       "id": "fa33cb09-6a41-4dba-bfd8-1f1914018019"
+    },
+    {
+      "command": "EVENT_UI_CHANGE_TEXT_LAYER",
+      "args": {
+        "location": "overlay",
+        "__collapse": true
+      },
+      "id": "884debfc-1c8a-4b2d-8060-b229bd3c7c53"
     }
   ]
 }

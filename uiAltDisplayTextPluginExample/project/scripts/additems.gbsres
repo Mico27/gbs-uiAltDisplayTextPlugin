@@ -83,7 +83,7 @@
           "type": "expression",
           "value": "$00$ == 0 || $00$ == $V0$"
         },
-        "__collapseElse": true
+        "__collapseElse": false
       },
       "children": {
         "true": [
@@ -93,7 +93,7 @@
               "variable": "19",
               "value": {
                 "type": "expression",
-                "value": "$19$ + $V1$"
+                "value": "min(99, $19$ + $V1$)"
               }
             },
             "id": "5301ea65-3c06-41ac-afa2-fa53d248012b"

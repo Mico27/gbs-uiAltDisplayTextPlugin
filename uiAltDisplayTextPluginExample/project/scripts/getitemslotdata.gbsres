@@ -40,7 +40,7 @@
                 "type": "expression",
                 "value": "$03$ & 255"
               },
-              "__collapse": true
+              "__collapse": false
             },
             "id": "809760ba-0d83-4b10-8f69-3747547cefd9"
           },
@@ -52,7 +52,7 @@
                 "type": "expression",
                 "value": "$03$ >> 8"
               },
-              "__collapse": true
+              "__collapse": false
             },
             "id": "fdb122b2-72ad-4921-8e31-b7a01d46c38d"
           }
