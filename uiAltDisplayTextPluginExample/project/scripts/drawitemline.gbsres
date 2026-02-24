@@ -11,7 +11,7 @@
       "command": "EVENT_UI_LOAD_TEXT",
       "args": {
         "text": "\\003%c$01$%c$02$%D2$19$x",
-        "__collapse": true
+        "__collapse": false
       },
       "id": "94fd5c41-d6d9-4ec0-9d23-7541fe6f9f24"
     },
@@ -19,7 +19,7 @@
       "command": "EVENT_UI_CHANGE_LOAD_TEXT_MODE",
       "args": {
         "load_text_mode": "1",
-        "__collapse": true
+        "__collapse": false
       },
       "id": "176607cb-293d-4175-add6-9d8ed77d7e85"
     },
@@ -29,22 +29,22 @@
         "variable": "0",
         "choices": 16,
         "__collapseCase0": false,
-        "__collapseCase1": false,
-        "__collapseCase2": false,
-        "__collapseCase3": false,
-        "__collapseCase4": false,
-        "__collapseCase5": false,
-        "__collapseCase6": false,
-        "__collapseCase7": false,
-        "__collapseCase8": false,
-        "__collapseCase9": false,
-        "__collapseCase10": false,
-        "__collapseCase11": false,
-        "__collapseCase12": false,
-        "__collapseCase13": false,
-        "__collapseCase14": false,
-        "__collapseCase15": false,
-        "__collapseElse": false,
+        "__collapseCase1": true,
+        "__collapseCase2": true,
+        "__collapseCase3": true,
+        "__collapseCase4": true,
+        "__collapseCase5": true,
+        "__collapseCase6": true,
+        "__collapseCase7": true,
+        "__collapseCase8": true,
+        "__collapseCase9": true,
+        "__collapseCase10": true,
+        "__collapseCase11": true,
+        "__collapseCase12": true,
+        "__collapseCase13": true,
+        "__collapseCase14": true,
+        "__collapseCase15": true,
+        "__collapseElse": true,
         "__collapse": false
       },
       "children": {
@@ -53,7 +53,7 @@
             "command": "EVENT_UI_LOAD_TEXT",
             "args": {
               "text": "Apple   ",
-              "__collapse": true
+              "__collapse": false
             },
             "id": "ea7c418d-3fa4-45c0-9833-bb19f19e11cb"
           }
@@ -225,14 +225,14 @@
       "command": "EVENT_UI_CHANGE_LOAD_TEXT_MODE",
       "args": {
         "load_text_mode": "0",
-        "__collapse": true
+        "__collapse": false
       },
       "id": "3760d489-fe5e-45f3-a103-c65c837d06d8"
     },
     {
       "command": "EVENT_UI_ALT_DISPLAY_LOADED_TEXT",
       "args": {
-        "__collapse": true
+        "__collapse": false
       },
       "id": "7f323a9c-a0db-4af1-89f8-af06bb6f853c"
     }

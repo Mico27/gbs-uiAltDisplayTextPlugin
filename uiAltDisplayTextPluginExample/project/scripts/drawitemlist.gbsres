@@ -59,7 +59,7 @@
       "command": "EVENT_UI_CHANGE_TEXT_LAYER",
       "args": {
         "location": "background",
-        "__collapse": true
+        "__collapse": false
       },
       "id": "415192c6-be59-4fc5-aacc-91e47e5fd22b"
     },
@@ -117,7 +117,7 @@
       "command": "EVENT_UI_CHANGE_TEXT_LAYER",
       "args": {
         "location": "overlay",
-        "__collapse": true
+        "__collapse": false
       },
       "id": "884debfc-1c8a-4b2d-8060-b229bd3c7c53"
     }
