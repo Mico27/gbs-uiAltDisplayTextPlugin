@@ -526,6 +526,42 @@
         ]
       },
       "id": "22a48516-229f-4645-9b76-4bfc98517224"
+    },
+    {
+      "command": "EVENT_SET_VALUE",
+      "args": {
+        "variable": "25",
+        "value": {
+          "type": "number",
+          "value": 53
+        }
+      },
+      "id": "e9d14dfd-204f-4f21-ab10-3836524efefc"
+    },
+    {
+      "command": "EVENT_TEXT",
+      "args": {
+        "text": [
+          "!F:4bd653f0-e08d-424e-9e5b-c1f3aaa21e47!Hello !F:c01c9122-472e-4131-85e0-b06d0971cdad!Hello $25$\n!F:8ed435d9-51cb-44e7-8b0d-ca85e63ca427!variable Hello"
+        ],
+        "__section": "text",
+        "avatarId": "",
+        "minHeight": 4,
+        "maxHeight": 7,
+        "textX": 1,
+        "textY": 1,
+        "textHeight": 5,
+        "position": "bottom",
+        "clearPrevious": true,
+        "showFrame": "true",
+        "speedIn": -1,
+        "speedOut": -1,
+        "closeWhen": "key",
+        "closeButton": "a",
+        "closeDelayTime": 0.5,
+        "closeDelayFrames": 30
+      },
+      "id": "2de4ab25-e52e-423a-8590-fa74840870bf"
     }
   ],
   "playerHit1Script": [],

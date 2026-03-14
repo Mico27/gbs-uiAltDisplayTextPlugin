@@ -152,9 +152,7 @@ UBYTE ui_alt_draw_text_buffer_char(void) BANKED {
                 ui_alt_text_ptr++;
                 // fall down to default
             default:
-                //UBYTE tile = (*ui_alt_text_ptr);
-                UBYTE tile = ReadBankedUBYTE(vwf_current_font_desc.recode_table + (*ui_alt_text_ptr), vwf_current_font_bank);
-				//UBYTE tile = ReadBankedUBYTE(char_tileset_mapping + (*ui_alt_text_ptr) , BANK(char_tileset_mapping));
+				UBYTE tile = ReadBankedUBYTE(char_tileset_mapping + (*ui_alt_text_ptr) , BANK(char_tileset_mapping));
 				//warp around of vram instead of next line
 				if (((UBYTE)ui_alt_dest_ptr >> 5) != ((UBYTE)ui_alt_dest_base >> 5)) {
 					ui_alt_dest_ptr -= 32u;
@@ -219,7 +217,6 @@ void ui_alt_display_dialogue_modal(SCRIPT_CTX * THIS) OLDCALL BANKED {
 
 UBYTE ui_alt_display_dialogue(void * THIS, UBYTE start, UWORD * stack_frame) OLDCALL BANKED {
     THIS;
-    stack_frame;
     UBYTE play_sound, speed_wait = FALSE;
 	if (start){
         INPUT_RESET;
