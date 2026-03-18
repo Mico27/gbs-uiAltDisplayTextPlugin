@@ -2,9 +2,28 @@
   "type": "enginePlugin",
   "name": "Append load Text Plugin",
   "author": "Mico27",
-  "url": "https://github.com/Mico27/gbs-uiAltDisplayTextPlugin",
+  "url": "https://github.com/Mico27/gbs-AppendLoadTextPlugin",
   "description": "Allows appending text to already loaded text before displaying it. Also adds more granular text options events",
   "license": "MIT",
-  "version": "1.1.0",
-  "gbsVersion": ">=4.2.0"
+  "version": "4.2.3",
+  "gbsVersion": ">=4.2.3",
+  "order": -1,
+  "engineAltRules": [
+    {
+      "when": {
+        "additionalPlugins": [
+          "Mico27/ScreenScrollPlugin"
+        ]
+      },
+      "use": "Scr"
+    },
+    {
+      "when": {
+        "additionalPlugins": [
+          "ScreenScrollPlugin"
+        ]
+      },
+      "use": "Scr"
+    }
+  ]
 }
