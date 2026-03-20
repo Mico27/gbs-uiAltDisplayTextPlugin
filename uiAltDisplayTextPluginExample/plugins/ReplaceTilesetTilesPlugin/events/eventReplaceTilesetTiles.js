@@ -4,11 +4,9 @@ export const groups = ["EVENT_GROUP_SCENE"];
 export const subGroups = {
   EVENT_GROUP_SCENE: "EVENT_GROUP_TILES",
 };
-
 export const autoLabel = (fetchArg) => {
   return `Replace Tileset Tiles`;
 };
-
 export const fields = [
   {
     key: "tilesetId",
@@ -45,22 +43,16 @@ export const fields = [
     defaultValue: 1,
   },
 ];
-
 export const compile = (input, helpers) => {
   const { options, _callNative, _stackPushConst, _stackPush, _stackPop, _addComment, _declareLocal, _stackPushScriptValue, _replaceTile } = helpers;
-
   const { tilesets } = options;
   const tileset = tilesets.find((t) => t.id === input.tilesetId) ?? tilesets[0];
   if (!tileset) {
     return;
   }
-
   _stackPushScriptValue(input.idx_target_tile);
   _stackPushScriptValue(input.idx_start_tile);
-
   _addComment("Replace tiles");
-
   _replaceTile(".ARG1", tileset.symbol, ".ARG0", input.tile_length);
-
   _stackPop(2);
 };

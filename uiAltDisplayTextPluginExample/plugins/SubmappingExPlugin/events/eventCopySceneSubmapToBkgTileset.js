@@ -1,11 +1,9 @@
 export const id = "EVENT_COPY_BKG_SUBMAP_TO_BKG_TILESET";
 export const name = "Copy scene submap to background tileset";
 export const groups = ["EVENT_GROUP_SCREEN"];
-
 export const autoLabel = (fetchArg) => {
   return `Copy scene submap to background tileset`;
 };
-
 export const fields = [
 {
     type: "group",
@@ -189,12 +187,9 @@ export const fields = [
     ]
 },
 ];
-
 export const compile = (input, helpers) => {
   const { options, _callNative, _rpn, _stackPushScriptValue, _stackPushConst, _stackPop, _addComment } = helpers;
-
   _addComment("Copy scene submap to background tileset");
-
   if (input.use_far_ptr){
     _stackPushScriptValue(input.scene_ptr);
     _stackPushScriptValue(input.scene_bank);
@@ -227,7 +222,6 @@ export const compile = (input, helpers) => {
   _stackPushScriptValue(input.dest_y);
   _stackPushScriptValue(input.source_x);
   _stackPushScriptValue(input.source_y);
-
   _rpn()  .ref(".ARG6").int16(256).operator(".MUL")        // (overlay_y << 8) | overlay_x
           .ref(".ARG7")
           .operator(".B_OR")
@@ -245,9 +239,7 @@ export const compile = (input, helpers) => {
           .operator(".B_OR")
           .refSet(".ARG4")
           .stop();
-
   _stackPop(4);
   _callNative("copy_background_submap_to_tileset");
   _stackPop(7);
-
 };

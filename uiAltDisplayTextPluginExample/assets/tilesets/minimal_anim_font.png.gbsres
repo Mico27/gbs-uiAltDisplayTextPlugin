@@ -1,0 +1,11 @@
+{
+  "_resourceType": "tileset",
+  "id": "0b34350f-4256-465f-b3f3-0a54f566d8d4",
+  "name": "minimal_anim_font",
+  "symbol": "tileset_minimal_anim_font",
+  "width": 16,
+  "height": 5,
+  "imageWidth": 128,
+  "imageHeight": 40,
+  "filename": "minimal_anim_font.png"
+}

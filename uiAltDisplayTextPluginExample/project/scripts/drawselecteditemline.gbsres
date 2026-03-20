@@ -1,0 +1,66 @@
+{
+  "_resourceType": "script",
+  "id": "e151ae59-fb55-4e41-a452-fa24fcbb6708",
+  "name": "DrawSelectedItemLine",
+  "description": "",
+  "variables": {},
+  "actors": {},
+  "symbol": "script_8",
+  "script": [
+    {
+      "command": "EVENT_GROUP",
+      "args": {
+        "__label": "Redraw Selected Line"
+      },
+      "children": {
+        "true": [
+          {
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "20",
+              "value": {
+                "type": "expression",
+                "value": "$21$ + 1"
+              },
+              "__collapse": true
+            },
+            "id": "65be8d1a-7263-47b0-9dff-35890d786f97"
+          },
+          {
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "2",
+              "value": {
+                "type": "expression",
+                "value": "2 + $20$"
+              },
+              "__collapse": true
+            },
+            "id": "cb85b24c-1c2f-431c-a476-564f2f800ca4"
+          },
+          {
+            "command": "EVENT_CALL_CUSTOM_EVENT",
+            "args": {
+              "customEventId": "715d31e5-d0ee-414e-a20e-2e7873598419",
+              "__collapse": true,
+              "$variable[V0]$": {
+                "type": "variable",
+                "value": "20"
+              }
+            },
+            "id": "16b3401c-6ad9-498f-bba7-428067f7c26a"
+          },
+          {
+            "command": "EVENT_CALL_CUSTOM_EVENT",
+            "args": {
+              "customEventId": "59303023-e289-4120-a236-44247b93b588",
+              "__collapse": true
+            },
+            "id": "e16130b7-f85a-4619-a043-98cf1dbfbf59"
+          }
+        ]
+      },
+      "id": "4526ef56-8e55-4fab-9d9c-08b3fa2c9e28"
+    }
+  ]
+}

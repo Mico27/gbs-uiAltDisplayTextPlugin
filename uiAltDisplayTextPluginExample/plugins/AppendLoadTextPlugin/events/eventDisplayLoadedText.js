@@ -2,11 +2,9 @@ const l10n = require("../helpers/l10n").default;
 const id = "EVENT_UI_DISPLAY_LOADED_TEXT";
 const name = "Display Loaded Text";
 const groups = ["EVENT_GROUP_DIALOGUE"];
-
 const autoLabel = (fetchArg) => {
   return `Display Loaded Text`;
 };
-
 const fields = [
   {
     label: "Display currently loaded text",
@@ -39,14 +37,12 @@ const fields = [
     ],
   },
 ];
-
 const compile = (input, helpers) => {
   const {
     _displayText,
   } = helpers;
       _displayText(input.preserve_pos, (input.use_start_tile)? input.start_tile: null);
 };
-
 module.exports = {
   id,
   name,

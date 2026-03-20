@@ -29,7 +29,7 @@
         "variable": "0",
         "choices": 16,
         "__collapseCase0": false,
-        "__collapseCase1": true,
+        "__collapseCase1": false,
         "__collapseCase2": true,
         "__collapseCase3": true,
         "__collapseCase4": true,
@@ -63,7 +63,7 @@
             "command": "EVENT_UI_LOAD_TEXT",
             "args": {
               "text": "Banana  ",
-              "__collapse": true
+              "__collapse": false
             },
             "id": "08bd2503-f1d9-4018-a6a3-89675ef5c218"
           }
@@ -230,11 +230,51 @@
       "id": "3760d489-fe5e-45f3-a103-c65c837d06d8"
     },
     {
-      "command": "EVENT_UI_ALT_DISPLAY_LOADED_TEXT",
+      "command": "EVENT_IF",
       "args": {
-        "__collapse": false
+        "condition": {
+          "type": "expression",
+          "value": "$20$ == ($21$ + 1) || ($23$ && $24$ == $20$)"
+        },
+        "__collapseElse": false
       },
-      "id": "7f323a9c-a0db-4af1-89f8-af06bb6f853c"
+      "children": {
+        "true": [
+          {
+            "command": "EVENT_SET_FONT",
+            "args": {
+              "fontId": "4aedb282-2ed9-44a6-9848-bd6e277a314a",
+              "__collapse": true
+            },
+            "id": "05f4f573-eeeb-46b0-8a26-d1bc11814e1e"
+          },
+          {
+            "command": "EVENT_UI_ALT_DISPLAY_LOADED_TEXT",
+            "args": {
+              "__collapse": true
+            },
+            "id": "fb056f68-278f-4642-bd66-80dcea948960"
+          },
+          {
+            "command": "EVENT_SET_FONT",
+            "args": {
+              "fontId": "c01c9122-472e-4131-85e0-b06d0971cdad",
+              "__collapse": true
+            },
+            "id": "be043c96-19e7-446e-9b91-a6b392e85f5d"
+          }
+        ],
+        "false": [
+          {
+            "command": "EVENT_UI_ALT_DISPLAY_LOADED_TEXT",
+            "args": {
+              "__collapse": false
+            },
+            "id": "7f323a9c-a0db-4af1-89f8-af06bb6f853c"
+          }
+        ]
+      },
+      "id": "b97224c7-8e96-4258-bc12-da74837438ea"
     }
   ]
 }

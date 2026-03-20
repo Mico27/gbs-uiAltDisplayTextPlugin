@@ -1,0 +1,11 @@
+{
+  "_resourceType": "tileset",
+  "id": "b0b841f8-e142-4620-aa5c-b3985be8366f",
+  "name": "minimal_bold_font",
+  "symbol": "tileset_minimal_bold_font",
+  "width": 16,
+  "height": 5,
+  "imageWidth": 128,
+  "imageHeight": 40,
+  "filename": "minimal_bold_font.png"
+}

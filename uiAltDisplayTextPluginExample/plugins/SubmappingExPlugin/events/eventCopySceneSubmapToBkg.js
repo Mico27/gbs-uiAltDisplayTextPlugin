@@ -1,11 +1,9 @@
 export const id = "EVENT_COPY_BKG_SUBMAP_TO_BKG";
 export const name = "Copy scene submap to background";
 export const groups = ["EVENT_GROUP_SCREEN"];
-
 export const autoLabel = (fetchArg) => {
   return `Copy scene submap to background`;
 };
-
 export const fields = [
 {
     type: "group",
@@ -139,10 +137,8 @@ export const fields = [
     ]
 }
 ];
-
 export const compile = (input, helpers) => {
   const { options, _callNative, _stackPushConst, _stackPushScriptValue, _stackPop, _addComment } = helpers;
-
   if (input.use_far_ptr){
     _stackPushScriptValue(input.scene_ptr);
     _stackPushScriptValue(input.scene_bank);
@@ -161,8 +157,6 @@ export const compile = (input, helpers) => {
   _stackPushScriptValue(input.dest_x);
   _stackPushScriptValue(input.source_y);
   _stackPushScriptValue(input.source_x);
-
   _callNative("copy_background_submap_to_background");
   _stackPop(8);
-
 };

@@ -3,7 +3,7 @@
   "startSceneId": "fff19016-f54b-43ce-be5a-34cec2ec6ced",
   "startX": 6,
   "startY": 2,
-  "startMoveSpeed": 1,
+  "startMoveSpeed": 4,
   "startAnimSpeed": 15,
   "startDirection": "right",
   "showCollisionExtraTiles": false,
@@ -50,7 +50,7 @@
     2,
     3
   ],
-  "defaultFontId": "c01c9122-472e-4131-85e0-b06d0971cdad",
+  "defaultFontId": "4bd653f0-e08d-424e-9e5b-c1f3aaa21e47",
   "defaultCharacterEncoding": "",
   "defaultPlayerSprites": {
     "TOPDOWN": "581d34d0-9591-4e6e-a609-1d94f203b0cd",
