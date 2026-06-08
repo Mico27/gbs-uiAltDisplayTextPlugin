@@ -2,10 +2,18 @@ Index: src\core\vm_ui.c
 ===================================================================
 --- src\core\vm_ui.c
 +++ src\core\vm_ui.c
+@@ -1,5 +1,5 @@
+-#pragma bank 255
++﻿#pragma bank 255
+ 
+ #include <string.h>
+ #include <stdlib.h>
+ 
 @@ -44,10 +44,16 @@
      if (vwf_direction != UI_PRINT_LEFTTORIGHT) reverse(d);
      return len;
  }
+ 
 +UWORD loaded_text_length;
 +UBYTE load_text_mode;
  static const unsigned char * load_text(const unsigned char * s, INT16 * args) NONBANKED {
@@ -27,4 +35,5 @@ Index: src\core\vm_ui.c
 +    loaded_text_length = d - prev_d;
      return s + 1;
  }
+ 
  // renders UI text into buffer

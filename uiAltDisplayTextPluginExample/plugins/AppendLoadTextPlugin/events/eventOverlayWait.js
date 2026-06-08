@@ -2,9 +2,11 @@ const l10n = require("../helpers/l10n").default;
 const id = "EVENT_UI_OVERLAY_WAIT";
 const name = "Wait for overlay/text to finish displaying";
 const groups = ["EVENT_GROUP_DIALOGUE"];
+
 const autoLabel = (_, input) => {
   return `Wait for overlay/text to finish displaying`;
 };
+
 const fields = [
   {
     key: "modal",
@@ -55,6 +57,7 @@ const fields = [
     defaultValue: false,
   },
 ];
+
 const compile = (input, helpers) => {
     const { _overlayWait } = helpers;
     const waitFlags = [];
@@ -74,7 +77,9 @@ const compile = (input, helpers) => {
         waitFlags.push(".UI_WAIT_BTN_ANY");
     }
     _overlayWait(input.modal, waitFlags);
+
 };
+
 module.exports = {
   id,
   name,

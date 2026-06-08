@@ -1,9 +1,11 @@
 #pragma bank 255
+
 #include <gbdk/platform.h>
 #include "system.h"
 #include "vm.h"
 #include "gbs_types.h"
 #include "bankdata.h"
+
 void replace_tiles_ex(SCRIPT_CTX * THIS) OLDCALL BANKED {
     uint8_t tile_length = *(uint8_t*)VM_REF_TO_PTR(FN_ARG0);
     int16_t idx_start_tile = *(int16_t*)VM_REF_TO_PTR(FN_ARG1);
@@ -17,4 +19,5 @@ void replace_tiles_ex(SCRIPT_CTX * THIS) OLDCALL BANKED {
 #ifdef CGB
     VBK_REG = 0;
 #endif
+
 }

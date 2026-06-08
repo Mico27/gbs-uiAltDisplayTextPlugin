@@ -6,6 +6,7 @@ Index: src\core\vm_ui.c
      if (vwf_direction != UI_PRINT_LEFTTORIGHT) reverse(d);
      return len;
  }
+ 
 +UWORD loaded_text_length;
 +UBYTE load_text_mode;
  static const unsigned char * load_text(const unsigned char * s, INT16 * args) NONBANKED {
@@ -27,4 +28,5 @@ Index: src\core\vm_ui.c
 +    loaded_text_length = d - prev_d;
      return s + 1;
  }
+ 
  // renders UI text into buffer

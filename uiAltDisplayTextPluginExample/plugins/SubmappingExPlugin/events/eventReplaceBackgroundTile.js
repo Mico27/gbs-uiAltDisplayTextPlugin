@@ -1,9 +1,11 @@
 export const id = "EVENT_REPLACE_BACKGROUND_TILE";
 export const name = "Set background tile";
 export const groups = ["EVENT_GROUP_SCREEN"];
+
 export const autoLabel = (fetchArg) => {
   return `Set background tile`;
 };
+
 export const fields = [
   {
     key: `x`,
@@ -35,6 +37,7 @@ export const fields = [
     },
   },
 ];
+
 export const compile = (input, helpers) => {
   const { _callNative, _stackPushScriptValue, _stackPop, _addComment } = helpers;
   _addComment("Replace background tile");

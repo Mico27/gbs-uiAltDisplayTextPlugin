@@ -2,6 +2,7 @@ const l10n = require("../helpers/l10n").default;
 const id = "EVENT_UI_LOAD_TEXT";
 const name = "Load text";
 const groups = ["EVENT_GROUP_DIALOGUE"];
+
 const autoLabel = (fetchArg, args) => {
   if (([].concat(args.text) || []).join()) {
     return `Load text: ${fetchArg("text")}`;
@@ -9,6 +10,7 @@ const autoLabel = (fetchArg, args) => {
     return `Load text`;
   }
 };
+
 const fields = [
   {
     key: "text",
@@ -20,15 +22,18 @@ const fields = [
     flexBasis: "100%",
   },
 ];
+
 const compile = (input, helpers) => {
   const {
     _loadStructuredText,
   } = helpers;
+
     const inputTexts = Array.isArray(input.text) ? input.text : [input.text];
     inputTexts.forEach((inputText, textIndex) => {
       _loadStructuredText(inputText);
     });
 };
+
 module.exports = {
   id,
   name,
