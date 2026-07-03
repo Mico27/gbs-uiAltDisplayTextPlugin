@@ -17,6 +17,7 @@ All events added by this plugin appear in the script editor under the **Dialogue
 3. [Technicalities and Restrictions](#technicalities-and-restrictions)
 4. [Events Reference](#events-reference)
 5. [Inner Workings](#inner-workings)
+6. [Memory Footprint](#memory-footprint)
 
 ---
 
@@ -224,3 +225,18 @@ On DMG hardware the CGB block is compiled out and only the tile ID write occurs.
 ### Compile-Time Font Table Adjustment
 
 When **Adjust font mapping with offset on compile** is checked on an **Alt Load Font tiles** event, the compiler's `eventUiAltLoadFont.js` mutates the font object's `table` array in place during the build by adding the specified `offset` to every entry. A per-font flag (`offsetted_fonts_cache`) is checked first — if the same font has already been adjusted in this build the compiler throws an error, preventing double-offset corruption. The adjusted `table` is what becomes the `recode_table` in the compiled ROM, so no runtime offset arithmetic is needed.
+
+---
+
+## Memory Footprint
+
+Measured against the stock GB Studio **4.3.0-e1** engine (per-file SDCC compile with GB Studio's build flags, default engine settings). Values are the plugin's *delta* versus the stock engine; DMG build, with CGB noted where it differs. ROM cost lands in banked ROM (GB Studio's autobanker spreads it across switchable banks); using the plugin's events additionally compiles a few bytes of GBVM script per call into your project's script banks.
+
+| | Cost |
+|---|---|
+| WRAM | +10 bytes |
+| ROM | +1,414 bytes (DMG) / +1,529 bytes (CGB) |
+
+- **WRAM:** 10 bytes of alternate text-rendering state.
+- **Engine WRAM headroom:** the stock GB Studio 4.3.0 engine leaves about **854 bytes** of WRAM free (usable engine WRAM is 7,776 bytes at 0xC0A0–0xDF00; the stock engine uses 6,922 bytes). With this plugin installed roughly **844 bytes** remain. This figure does not depend on how many global variables your project defines: the script memory array has a fixed size of VM_HEAP_SIZE + (VM_MAX_CONTEXTS × VM_CONTEXT_STACK_SIZE) words — 768 + 16 × 64 = 1,792 words (3,584 bytes) with stock engine settings.
+- **SRAM:** not used.
