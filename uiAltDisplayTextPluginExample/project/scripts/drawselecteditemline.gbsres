@@ -32,7 +32,7 @@
               "variable": "2",
               "value": {
                 "type": "expression",
-                "value": "2 + $20$ - $26$"
+                "value": "@e449765a-5457-427f-ba3b-ba4338e4a705@ - 1 + $20$ - $26$"
               },
               "__collapse": true
             },

@@ -137,5 +137,36 @@
       "symbol": "var_scrolloffset"
     }
   ],
-  "constants": []
+  "constants": [
+    {
+      "id": "cba1ad7b-ed01-46c6-af7d-580f19f9cc2a",
+      "name": "LIST/POS_X",
+      "symbol": "const_list_x",
+      "value": 9
+    },
+    {
+      "id": "e449765a-5457-427f-ba3b-ba4338e4a705",
+      "name": "LIST/POS_Y",
+      "symbol": "const_list_y",
+      "value": 3
+    },
+    {
+      "id": "8d910ecc-8a7d-47d3-8018-171693916eba",
+      "name": "LIST/WIDTH",
+      "symbol": "const_list_width",
+      "value": 11
+    },
+    {
+      "id": "0a279999-6677-4177-8bd2-6949b0fa9d5f",
+      "name": "LIST/HEIGHT",
+      "symbol": "const_list_height",
+      "value": 14
+    },
+    {
+      "id": "743e6e73-3f8d-4bdd-981e-9fefdf6e3f0c",
+      "name": "LIST/LENGTH",
+      "symbol": "const_list_length",
+      "value": 17
+    }
+  ]
 }
