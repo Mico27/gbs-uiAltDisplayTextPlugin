@@ -130,6 +130,11 @@
       "id": "25",
       "name": "TempVariable",
       "symbol": "var_tempvariable"
+    },
+    {
+      "id": "26",
+      "name": "ScrollOffset",
+      "symbol": "var_scrolloffset"
     }
   ],
   "constants": []

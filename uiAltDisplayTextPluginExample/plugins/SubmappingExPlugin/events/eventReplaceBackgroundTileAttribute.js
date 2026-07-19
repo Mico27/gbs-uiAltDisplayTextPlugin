@@ -1,9 +1,9 @@
-export const id = "EVENT_REPLACE_BACKGROUND_TILE";
-export const name = "Set background tile";
+export const id = "EVENT_REPLACE_BACKGROUND_TILE_ATTR";
+export const name = "Set background tile attribute";
 export const groups = ["EVENT_GROUP_SCREEN"];
 
 export const autoLabel = (fetchArg) => {
-  return `Set background tile`;
+  return `Set background tile attribute`;
 };
 
 export const fields = [
@@ -28,8 +28,8 @@ export const fields = [
     },
   },
   {
-    key: `tile_id`,
-    label: "Tile id",
+    key: `tile_attribute`,
+    label: "Tile attribute",
     type: "value",
     defaultValue: {
       type: "number",
@@ -50,10 +50,10 @@ export const compile = (input, helpers) => {
   }
 
   const { _callNative, _stackPushScriptValue, _stackPop, _addComment } = helpers;
-  _addComment("Replace background tile");
-  _stackPushScriptValue(input.tile_id);
+  _addComment("Replace background tile attribute");
+  _stackPushScriptValue(input.tile_attribute);
   _stackPushScriptValue(input.y);
   _stackPushScriptValue(input.x);
-  _callNative("vm_replace_background_tile");
+  _callNative("vm_replace_background_attribute_tile");
   _stackPop(3);
 };

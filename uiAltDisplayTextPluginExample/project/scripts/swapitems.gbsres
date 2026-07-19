@@ -93,7 +93,7 @@
         "variable": "2",
         "value": {
           "type": "expression",
-          "value": "2 + $20$"
+          "value": "2 + $20$ - $26$"
         },
         "__collapse": true
       },
@@ -181,7 +181,7 @@
         "variable": "2",
         "value": {
           "type": "expression",
-          "value": "2 + $20$"
+          "value": "2 + $20$ - $26$"
         },
         "__collapse": true
       },

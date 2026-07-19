@@ -1,9 +1,11 @@
-export const id = "EVENT_REPLACE_BACKGROUND_TILE";
-export const name = "Set background tile";
+const l10n = require("../helpers/l10n").default;
+
+export const id = "EVENT_GET_BACKGROUND_TILE";
+export const name = "Get background tile";
 export const groups = ["EVENT_GROUP_SCREEN"];
 
 export const autoLabel = (fetchArg) => {
-  return `Set background tile`;
+  return `Get background tile`;
 };
 
 export const fields = [
@@ -28,14 +30,12 @@ export const fields = [
     },
   },
   {
-    key: `tile_id`,
-    label: "Tile id",
-    type: "value",
-    defaultValue: {
-      type: "number",
-      value: 0,
-    },
-  },
+    key: "variable",
+    label: l10n("FIELD_VARIABLE"),
+    description: l10n("FIELD_VARIABLE_DESC"),
+    type: "variable",
+    defaultValue: "LAST_VARIABLE",
+  }
 ];
 
 export const compile = (input, helpers) => {
@@ -49,11 +49,26 @@ export const compile = (input, helpers) => {
     throw new Error("This event requires the \"Individual tile getters/setters\" engine setting to be enabled (Settings → Engine → Submapping Ex).");
   }
 
-  const { _callNative, _stackPushScriptValue, _stackPop, _addComment } = helpers;
-  _addComment("Replace background tile");
-  _stackPushScriptValue(input.tile_id);
+  const { _callNative, _stackPop, _addComment, _declareLocal, getVariableAlias, _stackPushConst, _isIndirectVariable, _setInd, _stackPushScriptValue } = helpers;
+
+  const variableAlias = getVariableAlias(input.variable);
+  let dest = variableAlias;
+  if (_isIndirectVariable(input.variable)) {
+    const index_result = _declareLocal("index_result", 1, true);
+    dest = index_result;
+  }
+  
+  _addComment("Get background tile");
+
+  _stackPushConst(dest);
   _stackPushScriptValue(input.y);
   _stackPushScriptValue(input.x);
-  _callNative("vm_replace_background_tile");
+
+  _callNative("vm_get_background_tile");
   _stackPop(3);
+  
+  if (_isIndirectVariable(input.variable)) {
+    _setInd(variableAlias, dest);
+  }
+
 };

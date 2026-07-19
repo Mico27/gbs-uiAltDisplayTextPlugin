@@ -24,7 +24,7 @@
         "offset": 96,
         "length": 80,
         "adjustFontMappingWithOffset": true,
-        "__collapse": false
+        "__collapse": true
       },
       "id": "2e21883c-440e-492f-9763-18609e696f25"
     },
@@ -115,7 +115,7 @@
         ],
         "override": true,
         "__scriptTabs": "press",
-        "__collapse": true
+        "__collapse": false
       },
       "children": {
         "true": [
@@ -123,17 +123,10 @@
             "command": "EVENT_IF",
             "args": {
               "condition": {
-                "type": "gt",
-                "valueA": {
-                  "type": "variable",
-                  "value": "21"
-                },
-                "valueB": {
-                  "type": "number",
-                  "value": 0
-                }
+                "type": "expression",
+                "value": "$21$ - $26$ > 0"
               },
-              "__collapseElse": true,
+              "__collapseElse": false,
               "__collapse": false
             },
             "children": {
@@ -203,7 +196,7 @@
                           "variable": "2",
                           "value": {
                             "type": "expression",
-                            "value": "2 + $20$"
+                            "value": "2 + $20$ - $26$"
                           },
                           "__collapse": true
                         },
@@ -250,7 +243,156 @@
                   "id": "051b9304-1f7d-4b6a-9bb0-acd53f01526c"
                 }
               ],
-              "false": []
+              "false": [
+                {
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "gt",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "21"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 0
+                      }
+                    },
+                    "__collapseElse": false,
+                    "__collapse": false
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "command": "EVENT_UI_CHANGE_TEXT_LAYER",
+                        "args": {
+                          "location": "background",
+                          "__collapse": true
+                        },
+                        "id": "73450ef2-dbeb-4260-94f7-031c4208f27b"
+                      },
+                      {
+                        "command": "EVENT_DEC_VALUE",
+                        "args": {
+                          "variable": "21",
+                          "__collapse": true
+                        },
+                        "id": "a727befd-deab-4d91-a6ae-16a49f2c0f43"
+                      },
+                      {
+                        "command": "EVENT_GROUP",
+                        "args": {
+                          "__label": "Redraw Selected Line",
+                          "__collapse": false
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "command": "EVENT_SET_VALUE",
+                              "args": {
+                                "variable": "20",
+                                "value": {
+                                  "type": "expression",
+                                  "value": "$21$ + 2"
+                                },
+                                "__collapse": true
+                              },
+                              "id": "95823041-0132-4e88-ba40-96816a8cff78"
+                            },
+                            {
+                              "command": "EVENT_SET_VALUE",
+                              "args": {
+                                "variable": "2",
+                                "value": {
+                                  "type": "expression",
+                                  "value": "2 + $20$ - $26$"
+                                },
+                                "__collapse": true
+                              },
+                              "id": "ec88b5a5-2179-4052-a6f2-3f8e7f04cac8"
+                            },
+                            {
+                              "command": "EVENT_CALL_CUSTOM_EVENT",
+                              "args": {
+                                "customEventId": "715d31e5-d0ee-414e-a20e-2e7873598419",
+                                "__collapse": true,
+                                "$variable[V0]$": {
+                                  "type": "variable",
+                                  "value": "20"
+                                }
+                              },
+                              "id": "e86fe39b-a1fd-403e-8947-23e73c5c2ed2"
+                            },
+                            {
+                              "command": "EVENT_CALL_CUSTOM_EVENT",
+                              "args": {
+                                "customEventId": "59303023-e289-4120-a236-44247b93b588",
+                                "__collapse": true
+                              },
+                              "id": "430ea508-2008-403d-b498-ebe53b054a64"
+                            }
+                          ]
+                        },
+                        "id": "6cf69cc4-8edb-434e-b01f-6a3829ff47cd"
+                      },
+                      {
+                        "command": "EVENT_DEC_VALUE",
+                        "args": {
+                          "variable": "26",
+                          "__collapse": true
+                        },
+                        "id": "d9569b3e-50e7-4390-b4e1-dd4b40aee2c1"
+                      },
+                      {
+                        "command": "EVENT_SCROLL_BACKGROUND_RECT",
+                        "args": {
+                          "x": {
+                            "type": "number",
+                            "value": 8
+                          },
+                          "y": {
+                            "type": "number",
+                            "value": 2
+                          },
+                          "w": {
+                            "type": "number",
+                            "value": 11
+                          },
+                          "h": {
+                            "type": "number",
+                            "value": 14
+                          },
+                          "direction": "down",
+                          "fill_tile_id": {
+                            "type": "number",
+                            "value": 95
+                          },
+                          "__collapse": true
+                        },
+                        "id": "92b65138-44cf-4f65-8566-3c98d404e03d"
+                      },
+                      {
+                        "command": "EVENT_CALL_CUSTOM_EVENT",
+                        "args": {
+                          "customEventId": "e151ae59-fb55-4e41-a452-fa24fcbb6708",
+                          "__collapse": true
+                        },
+                        "id": "64a1aec0-890b-428e-aa3c-a035c627dd2c"
+                      },
+                      {
+                        "command": "EVENT_UI_CHANGE_TEXT_LAYER",
+                        "args": {
+                          "location": "overlay",
+                          "__collapse": true
+                        },
+                        "id": "3c8ed7f3-3b55-450f-8198-723fbf19af21"
+                      }
+                    ],
+                    "false": []
+                  },
+                  "id": "5f3330e6-1dcd-4a31-a970-3a383187776c"
+                }
+              ]
             },
             "id": "60186255-c295-4126-b2cc-c20730335e4d"
           }
@@ -266,7 +408,7 @@
         ],
         "override": true,
         "__scriptTabs": "press",
-        "__collapse": true
+        "__collapse": false
       },
       "children": {
         "true": [
@@ -274,17 +416,10 @@
             "command": "EVENT_IF",
             "args": {
               "condition": {
-                "type": "lt",
-                "valueA": {
-                  "type": "variable",
-                  "value": "21"
-                },
-                "valueB": {
-                  "type": "number",
-                  "value": 13
-                }
+                "type": "expression",
+                "value": "$21$ - $26$ < 13"
               },
-              "__collapseElse": true,
+              "__collapseElse": false,
               "__collapse": false
             },
             "children": {
@@ -332,7 +467,7 @@
                   "command": "EVENT_GROUP",
                   "args": {
                     "__label": "Redraw Selected Line",
-                    "__collapse": false
+                    "__collapse": true
                   },
                   "children": {
                     "true": [
@@ -354,7 +489,7 @@
                           "variable": "2",
                           "value": {
                             "type": "expression",
-                            "value": "2 + $20$"
+                            "value": "2 + $20$ - $26$"
                           },
                           "__collapse": true
                         },
@@ -401,7 +536,156 @@
                   "id": "f310bbd4-2eaf-4bf3-8667-3098df5d6c4f"
                 }
               ],
-              "false": []
+              "false": [
+                {
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "lt",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "21"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 15
+                      }
+                    },
+                    "__collapseElse": false,
+                    "__collapse": false
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "command": "EVENT_UI_CHANGE_TEXT_LAYER",
+                        "args": {
+                          "location": "background",
+                          "__collapse": true
+                        },
+                        "id": "77dea9d1-ab18-4dcd-9bf3-3d43770b9d68"
+                      },
+                      {
+                        "command": "EVENT_INC_VALUE",
+                        "args": {
+                          "variable": "21",
+                          "__collapse": true
+                        },
+                        "id": "08a2f04b-c94b-4893-9f51-8b08045d3b02"
+                      },
+                      {
+                        "command": "EVENT_GROUP",
+                        "args": {
+                          "__label": "Redraw Selected Line",
+                          "__collapse": false
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "command": "EVENT_SET_VALUE",
+                              "args": {
+                                "variable": "20",
+                                "value": {
+                                  "type": "expression",
+                                  "value": "$21$"
+                                },
+                                "__collapse": true
+                              },
+                              "id": "02b958d6-3a0e-45e4-b239-ceaaa1e79e0f"
+                            },
+                            {
+                              "command": "EVENT_SET_VALUE",
+                              "args": {
+                                "variable": "2",
+                                "value": {
+                                  "type": "expression",
+                                  "value": "2 + $20$ - $26$"
+                                },
+                                "__collapse": true
+                              },
+                              "id": "ff434d45-41fe-483b-97c3-b80c5924734b"
+                            },
+                            {
+                              "command": "EVENT_CALL_CUSTOM_EVENT",
+                              "args": {
+                                "customEventId": "715d31e5-d0ee-414e-a20e-2e7873598419",
+                                "__collapse": true,
+                                "$variable[V0]$": {
+                                  "type": "variable",
+                                  "value": "20"
+                                }
+                              },
+                              "id": "ab795636-4b84-4ffc-8c4c-5909ac4cbf6f"
+                            },
+                            {
+                              "command": "EVENT_CALL_CUSTOM_EVENT",
+                              "args": {
+                                "customEventId": "59303023-e289-4120-a236-44247b93b588",
+                                "__collapse": true
+                              },
+                              "id": "15a0bd0b-208f-447c-b3a5-b6acf894b227"
+                            }
+                          ]
+                        },
+                        "id": "d1c9f8de-add8-43e7-b4d1-10a33b9cffa4"
+                      },
+                      {
+                        "command": "EVENT_INC_VALUE",
+                        "args": {
+                          "variable": "26",
+                          "__collapse": true
+                        },
+                        "id": "33356e92-c2bf-4c5a-8d57-3f41a60a857c"
+                      },
+                      {
+                        "command": "EVENT_SCROLL_BACKGROUND_RECT",
+                        "args": {
+                          "x": {
+                            "type": "number",
+                            "value": 8
+                          },
+                          "y": {
+                            "type": "number",
+                            "value": 2
+                          },
+                          "w": {
+                            "type": "number",
+                            "value": 11
+                          },
+                          "h": {
+                            "type": "number",
+                            "value": 14
+                          },
+                          "direction": "up",
+                          "fill_tile_id": {
+                            "type": "number",
+                            "value": 95
+                          },
+                          "__collapse": false
+                        },
+                        "id": "30559d02-1464-45b5-a658-a543dc3719be"
+                      },
+                      {
+                        "command": "EVENT_CALL_CUSTOM_EVENT",
+                        "args": {
+                          "customEventId": "e151ae59-fb55-4e41-a452-fa24fcbb6708",
+                          "__collapse": true
+                        },
+                        "id": "902ecef6-678d-4909-a185-2679d59ce9f5"
+                      },
+                      {
+                        "command": "EVENT_UI_CHANGE_TEXT_LAYER",
+                        "args": {
+                          "location": "overlay",
+                          "__collapse": true
+                        },
+                        "id": "3c7efed4-032a-4f3b-9f86-22cb16dc429f"
+                      }
+                    ],
+                    "false": []
+                  },
+                  "id": "9e10720c-3d6e-4bab-8cb2-ef6e83f64ded"
+                }
+              ]
             },
             "id": "8a5a8e62-a6a9-47a5-b602-8a5a672fd0e0"
           }
@@ -459,7 +743,7 @@
               "variable": "2",
               "value": {
                 "type": "expression",
-                "value": "2 + $20$"
+                "value": "2 + $20$ - $26$"
               },
               "__collapse": true
             },
