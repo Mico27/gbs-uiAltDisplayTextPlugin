@@ -12,20 +12,21 @@ All events added by this plugin appear in the script editor under the **Dialogue
 
 ## Table of Contents
 
-1. [How It Differs from Standard Text](#how-it-differs-from-standard-text)
+1. [Concepts](#concepts)
 2. [Project Setup](#project-setup)
-3. [Technicalities and Restrictions](#technicalities-and-restrictions)
+3. [Size Limits and Restrictions](#size-limits-and-restrictions)
 4. [Events Reference](#events-reference)
-5. [Inner Workings](#inner-workings)
-6. [Memory Footprint](#memory-footprint)
+5. [Memory Footprint](#memory-footprint)
 
 ---
 
-## How It Differs from Standard Text
+## Concepts
+
+### How it differs from standard text
 
 GB Studio's built-in text system uses a Variable Width Font (VWF) renderer. When displaying text it copies the raw pixel bitmaps of each character into free VRAM tile slots and then references those slots on the background/window tilemap. This consumes VRAM tile budget and requires font data to be written every time a scene is loaded.
 
-The **Alt Display Text** plugin skips that step entirely. It reads the font's **recode table** — a character-to-tile-ID mapping stored in the font's JSON `table` field — and writes those tile IDs directly to the VRAM tilemap. No pixel data is ever written; the tiles must already exist in VRAM before the text is rendered.
+The **Alt Display Text** plugin skips that step entirely. It reads a character-to-tile-ID mapping stored in the font's JSON `table` field and writes those tile IDs straight to the tilemap. No pixel data is ever written, so the tiles must already exist in VRAM before the text is rendered.
 
 | | Standard text | Alt text |
 |---|---|---|
@@ -71,14 +72,14 @@ Replace standard **Display Text** and **Display Dialogue** events with their **A
 
 ---
 
-## Technicalities and Restrictions
+## Size Limits and Restrictions
 
 - **Tiles must be loaded before rendering.** If the font's tiles are not in VRAM at the expected positions when an Alt text event runs, the wrong tiles (or garbage) will be displayed.
 - **Fixed tile width only.** Because each character maps to exactly one tile (8×8 px), there is no variable-width support. Every character occupies one tile cell on the tilemap.
-- **Tile IDs wrap at 256.** Tile ID arithmetic is done modulo 256. VRAM holds 256 tiles in the background tileset region (0x8000–0x8FFF on DMG/GBC), so IDs outside 0–255 wrap around automatically.
-- **Adjust font mapping can only be applied once per font.** The offset adjustment is a compile-time mutation of the font's `table` array. Applying it from two different events for the same font in the same build causes a compile error. If you need to load the same font at different offsets in different scenes you must create separate font assets or pre-bake the offsets into each font's JSON.
-- **CGB palette attributes are written alongside tiles.** On CGB hardware the plugin writes the current `text_palette` value to VRAM bank 1 alongside each tile ID, using the same `overlay_priority` flag as standard dialogue. Palette assignment behaves identically to standard text.
-- **All standard GB Studio text control codes are supported.** The character printer processes speed codes, goto/relative-goto positioning, wait-for-input, colour codes, newlines, scroll codes, and escape sequences in the same way as the standard renderer.
+- **Tile IDs wrap at 256.** The background tile region holds 256 tiles, so IDs outside 0–255 wrap around automatically.
+- **Adjust font mapping can only be applied once per font.** The offset adjustment changes the font's table at build time. Applying it from two different events for the same font in the same build causes a build error. If you need the same font loaded at different offsets in different scenes, create separate font assets or pre-bake the offsets into each font's JSON.
+- **Palette assignment behaves identically to standard text.** On Game Boy Color the current text palette and overlay priority are applied to the drawn tiles.
+- **All standard GB Studio text control codes are supported** — speed codes, goto and relative-goto positioning, wait-for-input, colour codes, newlines, scroll codes, and escape sequences all behave as in the standard renderer.
 - **No VRAM tile budget is consumed for rendering.** Because no bitmaps are written, the font tiles count against the tileset budget only if they are part of the common tileset (Option A). If loaded via Alt Load Font tiles they occupy whatever tile slots you assign.
 
 ---
@@ -136,7 +137,7 @@ Renders text directly to the **window/overlay** tilemap layer at the specified t
 
 **`EVENT_UI_ALT_DISPLAY_LOADED_TEXT`** — group: Dialogue
 
-Immediately renders whatever text was most recently prepared by a `_loadStructuredText` call (i.e. text staged by a preceding event or raw script). Useful when you need to load text through another mechanism and then render it with the Alt renderer. No text input field — operates on the currently loaded text buffer.
+Immediately renders whatever text was most recently loaded by a preceding event. Useful when the text is prepared by another mechanism and you want the Alt renderer to draw it. No text input field — it operates on the currently loaded text.
 
 ---
 
@@ -144,7 +145,7 @@ Immediately renders whatever text was most recently prepared by a `_loadStructur
 
 **`EVENT_UI_ALT_DISPLAY_LOADED_TEXT_SPEED`** — group: Dialogue
 
-Renders the currently loaded text buffer using the dialogue-speed system: respects the `text_draw_speed` setting, the fast-forward input, and text sound effects. The script yields each frame so other game systems continue to update. No text input field — operates on the currently loaded text buffer.
+Renders the currently loaded text using the dialogue-speed system: it respects the text speed setting, the fast-forward input and text sound effects, and yields each frame so other game systems keep updating. No text input field — it operates on the currently loaded text.
 
 ---
 
@@ -181,50 +182,6 @@ A full drop-in replacement for the standard **Display Text** dialogue event. Ope
 | Close When | `Button Pressed` (default), `Text Finished` (auto-close after a delay), or `Never (non-modal)`. |
 | Close Button | Which button closes the dialogue: A, B, or Any. |
 | Close Delay | When closing on text finished, the number of frames/seconds to wait before closing. |
-
----
-
-## Inner Workings
-
-### Font Recode Table
-
-The heart of the plugin is the font's `recode_table`, which is compiled from the `table` array in the font JSON. At runtime, `ReadBankedUBYTE(vwf_current_font_desc.recode_table + character_code, vwf_current_font_bank)` translates any incoming character byte into the VRAM tile ID to place at that tilemap cell. This is a single banked byte read per character — cheaper than the VWF path which must compose and blit pixel data.
-
-### Character Printer (`ui_alt_draw_text_buffer_char`)
-
-This function mirrors the structure of the standard GB Studio text printer but substitutes the VWF pixel-writing step with a direct `set_vram_byte` call:
-
-1. **Initialisation** (first call, `ui_alt_text_ptr == 0`): snapshots the current speed mask, fast-forward joypad flag, and text draw speed, then points the read pointer at `ui_text_data` (the shared text buffer populated by `_loadStructuredText`) and the write pointer at `text_render_base_addr`.
-2. **Control code dispatch**: the function loops over the text buffer, handling the full set of GB Studio text control codes:
-   - `0x00` — end of string; sets `ui_alt_text_drawn = TRUE` and resets state.
-   - `0x01` — inline speed change.
-   - `0x03` — absolute goto XY (resets both base and current destination pointers).
-   - `0x04` — relative goto XY.
-   - `0x06` — wait for button press; yields if the button has not been pressed yet.
-   - `0x0a` (`\n`) — carriage return (advances base pointer to next row).
-   - `0x0b` — CGB palette change.
-   - `0x0d` (`\r`) — linefeed with optional scroll: if the destination would go past the scroll area, `scroll_rect` shifts the window content up one row on both VRAM banks.
-   - `0x05` — escape: treat the next byte as a literal character.
-3. **Printable character**: looks up the tile ID via the recode table and calls `ui_alt_set_tile`, which writes the palette attribute to VRAM bank 1 (on CGB) and then writes the tile ID to VRAM bank 0. The destination pointer is incremented. A wrap-around guard prevents the pointer from accidentally crossing a 32-tile VRAM row boundary when the text position is at the edge of a tilemap row.
-
-### Instant vs. Speed Rendering
-
-- **`ui_alt_display_text`** calls `ui_alt_draw_text_buffer_char` in a tight loop until `ui_alt_text_drawn` is set — no frame yielding, no sound, no input. The entire text block is rendered in one call.
-- **`ui_alt_display_dialogue`** is a waitable VM function. Each call renders characters for the current frame (one or more depending on `text_draw_speed` and fast-forward state), plays the text sound effect if one is configured, then returns `FALSE` to yield back to the VM so the game loop can update cameras, actors, scroll, and OAM. It returns `TRUE` only when the full text has been drawn. The dialogue event wrapper (`ui_alt_display_dialogue_modal`) runs its own update loop for the modal use case.
-
-### Tile Writing and CGB Support
-
-`ui_alt_set_tile` is an inline helper that on CGB hardware:
-1. Switches to VRAM bank 1 (`VBK_REG = 1`).
-2. Writes `overlay_priority | (text_palette & 0x07)` to the attribute byte for the tile cell.
-3. Switches back to VRAM bank 0 (`VBK_REG = 0`).
-4. Writes the tile ID itself.
-
-On DMG hardware the CGB block is compiled out and only the tile ID write occurs.
-
-### Compile-Time Font Table Adjustment
-
-When **Adjust font mapping with offset on compile** is checked on an **Alt Load Font tiles** event, the compiler's `eventUiAltLoadFont.js` mutates the font object's `table` array in place during the build by adding the specified `offset` to every entry. A per-font flag (`offsetted_fonts_cache`) is checked first — if the same font has already been adjusted in this build the compiler throws an error, preventing double-offset corruption. The adjusted `table` is what becomes the `recode_table` in the compiled ROM, so no runtime offset arithmetic is needed.
 
 ---
 
