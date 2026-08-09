@@ -266,3 +266,34 @@ the core compiles, move it independently of this plugin.
 
 </details>
 <!-- BANK0:END -->
+
+## Changelog
+
+Grouped by the date each change was merged into the official
+[gb-studio-plugins](https://github.com/gb-studio-dev/gb-studio-plugins) repository.
+
+Only bug fixes, new features and feature changes are listed. Engine version
+bumps, patch regeneration, packaging fixes and documentation edits are omitted.
+
+### 2026-08-08
+
+- Added the Alt Menu: menu options are drawn by the plugin from tiles already resident in VRAM, leaving the stock `ui_run_menu` untouched.
+
+### 2026-08-02
+
+- Added scrolling support to the alt text display.
+
+### 2026-06-28
+
+- Added ContinuousScene and ScreenScroll plugin compatibility.
+- Added custom script parameter / stack support to the events.
+
+### 2026-06-08
+
+- New font loading feature, using the font's `.json` for tile mapping.
+
+### 2025-02-24
+
+- Initial release.
+- Fixed performance issues.
+- Added text scroll support.
