@@ -818,6 +818,21 @@
               "closeDelayFrames": 30
             },
             "id": "5a6899f2-7f33-468e-8e49-effe39a27cdd"
+          },
+          {
+            "command": "EVENT_UI_ALT_MENU",
+            "args": {
+              "variable": "0",
+              "items": 3,
+              "option1": "Lorem",
+              "option2": "ipsum",
+              "option3": "dolor",
+              "layout": "narrow",
+              "cancelOnLastOption": false,
+              "cancelOnB": true,
+              "__collapse": true
+            },
+            "id": "670001b1-4fdb-48c4-afb5-4f88d7a4fe64"
           }
         ]
       },

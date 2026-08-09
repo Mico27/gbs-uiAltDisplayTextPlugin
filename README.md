@@ -90,6 +90,35 @@ All events are in the **Dialogue** or **Misc** group and are prefixed with **Alt
 
 ---
 
+### Alt Menu
+
+**`EVENT_UI_ALT_MENU`** — group: Dialogue
+
+A menu whose options are drawn by this plugin instead of GB Studio’s own text renderer,
+so they use the tiles already sitting in VRAM like the rest of its text. The stock **Menu**
+event draws its options through the stock renderer and ignores those tiles entirely.
+
+Everything else matches the stock menu: one row per option, the same window arithmetic,
+the same cursor, navigation and cancel flags. This plugin puts a line of text on a single
+tilemap row exactly as stock text does, so nothing here needs rescaling.
+
+| Field | Description |
+|-------|-------------|
+| Set Variable To Selected Option | The chosen option’s number, counting from 1. Zero when the menu is cancelled. |
+| Number Of Options | 2 to 8. |
+| Layout | Narrow reproduces the stock menu box on the right; Full width gives each option the whole screen. |
+| Set To *n* If | The text of option *n*. |
+| Last Option Cancels | Choosing the final option sets the variable to 0 instead of its number. |
+| Cancel On B Button | B closes the menu and sets the variable to 0. |
+
+Internally the event calls `ui_alt_menu`, a small native in front of this plugin’s own
+`ui_alt_ui_run_menu`, rather than emitting `VM_CHOICE`. `VM_CHOICE` always calls the stock
+`ui_run_menu`, whose loop would let the stock renderer paint over the options this plugin
+had just drawn. **The stock `ui_run_menu` itself is left completely alone**, so stock menus
+elsewhere in the project keep working exactly as before.
+
+---
+
 ### Alt Load Font tiles
 
 **`EVENT_UI_ALT_LOAD_FONT`** — group: Misc
