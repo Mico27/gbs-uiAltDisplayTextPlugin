@@ -34,6 +34,14 @@
             "defaultValue": 1
         },
         {
+            "key": "SUBMAP_ENABLE_REFRESH_BACKGROUND",
+            "label": "Enable: Refresh background rectangle (reload original scene tiles)",
+            "group": "Submapping Ex",
+            "type": "checkbox",
+            "cType": "define",
+            "defaultValue": 1
+        },
+        {
             "key": "SUBMAP_ENABLE_COPY_SCENE_TO_TILESET",
             "label": "Enable: Copy scene submap to background tileset",
             "group": "Submapping Ex",

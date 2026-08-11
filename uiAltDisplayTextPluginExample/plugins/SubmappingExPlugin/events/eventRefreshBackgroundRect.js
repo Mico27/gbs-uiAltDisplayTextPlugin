@@ -1,9 +1,9 @@
-export const id = "EVENT_FILL_BACKGROUND_RECT";
-export const name = "Fill background rectangle with tile";
+export const id = "EVENT_REFRESH_BACKGROUND_RECT";
+export const name = "Refresh background rectangle";
 export const groups = ["EVENT_GROUP_SCREEN"];
 
 export const autoLabel = (fetchArg) => {
-  return `Fill background rectangle with tile`;
+  return `Refresh background rectangle`;
 };
 
 export const fields = [
@@ -46,12 +46,6 @@ export const fields = [
     ],
   },
   {
-    key: `tile_id`,
-    label: "Tile id",
-    type: "value",
-    defaultValue: { type: "number", value: 0 },
-  },
-  {
     key: "relative_to_scroll",
     label: "Coordinates relative to camera scroll",
     description:
@@ -68,18 +62,17 @@ export const compile = (input, helpers) => {
     const def = helpers.engineFields && helpers.engineFields[key];
     return def ? !!def.defaultValue : true;
   };
-  if (!__submapFeatureEnabled("SUBMAP_ENABLE_FILL_BACKGROUND")) {
-    throw new Error("This event requires the \"Fill background rectangle (tile and attribute)\" engine setting to be enabled (Settings → Engine → Submapping Ex).");
+  if (!__submapFeatureEnabled("SUBMAP_ENABLE_REFRESH_BACKGROUND")) {
+    throw new Error("This event requires the \"Refresh background rectangle (reload original scene tiles)\" engine setting to be enabled (Settings → Engine → Submapping Ex).");
   }
 
   const { _callNative, _stackPushScriptValue, _stackPushConst, _stackPop, _addComment } = helpers;
-  _addComment("Fill background rectangle with tile");
+  _addComment("Refresh background rectangle");
   _stackPushConst(input.relative_to_scroll ? 1 : 0);
-  _stackPushScriptValue(input.tile_id);
   _stackPushScriptValue(input.h);
   _stackPushScriptValue(input.w);
   _stackPushScriptValue(input.y);
   _stackPushScriptValue(input.x);
-  _callNative("vm_fill_background_rect");
-  _stackPop(6);
+  _callNative("vm_refresh_background_rect");
+  _stackPop(5);
 };
