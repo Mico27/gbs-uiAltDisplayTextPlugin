@@ -1,10 +1,16 @@
 # gbs-uiAltDisplayTextPlugin
 
-**Version 4.3.0 — Requires GB Studio ≥ 4.3.0**
+**Version 4.3.0. Requires GB Studio 4.3.0 or newer.**
 
-A GB Studio engine plugin that provides an alternative method of displaying text. Instead of writing font pixel data into VRAM tile slots at runtime (as the standard Variable Width Font renderer does), this plugin references tiles that are **already present in VRAM** and maps characters to those existing tile IDs. This preserves VRAM tile budget, enables pixel-perfect fixed-width fonts stored in the common tileset, and makes it possible to share graphical tiles between the background and the text renderer.
+Draws text out of tiles that are already loaded, rather than building each letter's pixels as it
+goes.
 
-All events added by this plugin appear in the script editor under the **Dialogue** or **Misc** groups and are prefixed with **Alt** to distinguish them from their standard counterparts.
+That saves the tile slots GB Studio's text renderer normally reserves, which matters when a scene's
+art is already using most of them. It also lets a font live in your common tileset, so letters and
+scenery share tiles, and it gives pixel-exact fixed-width text where the standard renderer would
+space letters by width.
+
+The events appear under **Dialogue** and **Misc**, each starting with **Alt**.
 
 <img width="307" height="288" alt="image" src="https://github.com/user-attachments/assets/1488a9c9-881e-4fae-b3fe-704547596e72" />
 
@@ -16,9 +22,10 @@ All events added by this plugin appear in the script editor under the **Dialogue
 2. [Project Setup](#project-setup)
 3. [Size Limits and Restrictions](#size-limits-and-restrictions)
 4. [Events Reference](#events-reference)
-5. [Memory Footprint](#memory-footprint)
-6. [Bank 0 (HOME) Usage](#bank-0-home-usage)
-7. [Changelog](#changelog)
+5. [FAQ](#faq)
+6. [Memory Footprint](#memory-footprint)
+7. [Bank 0 (HOME) Usage](#bank-0-home-usage)
+8. [Changelog](#changelog)
 
 ---
 
@@ -26,25 +33,30 @@ All events added by this plugin appear in the script editor under the **Dialogue
 
 ### How it differs from standard text
 
-GB Studio's built-in text system uses a Variable Width Font (VWF) renderer. When displaying text it copies the raw pixel bitmaps of each character into free VRAM tile slots and then references those slots on the background/window tilemap. This consumes VRAM tile budget and requires font data to be written every time a scene is loaded.
+GB Studio's text renderer copies each letter's pixels into a free tile slot and then puts that slot
+on screen. That uses tile slots, and it happens again every scene.
 
-The **Alt Display Text** plugin skips that step entirely. It reads a character-to-tile-ID mapping stored in the font's JSON `table` field and writes those tile IDs straight to the tilemap. No pixel data is ever written, so the tiles must already exist in VRAM before the text is rendered.
+The Alt events skip that. A list in the font's JSON file says which tile shows which character, and
+the event puts those tile numbers straight on screen. No pixels are copied, so the tiles have to be
+loaded before the text is drawn.
 
 | | Standard text | Alt text |
 |---|---|---|
-| Tile data written to VRAM at runtime | Yes | No |
-| Tiles consumed from VRAM budget | Yes (one per unique glyph) | No |
-| Font tiles must be pre-loaded | No | Yes |
-| Variable-width glyph support | Yes | No (fixed mapping per tile) |
-| Supports all standard text control codes | Yes | Yes |
+| Copies pixels while the game runs | Yes | No |
+| Uses tile slots to draw | Yes, one per unique letter | No |
+| Needs the font tiles loaded first | No | Yes |
+| Letters spaced by width | Yes | No, one tile per character |
+| Supports the usual text codes | Yes | Yes |
 
 ---
 
 ## Project Setup
 
-### 1. Create the Font Mapping
+### 1. Write the font mapping
 
-Open your font's JSON file and add a `table` array. Each entry in the array is the VRAM tile ID that corresponds to the ASCII character at that index (starting from ASCII 0). The tile IDs must point to tiles that will actually be present in VRAM when the text is rendered.
+Open the font's JSON file and add a `table` array. Entry number *n* is the tile that shows
+character number *n*, counting from character 0. Those tiles have to be present when the text is
+drawn.
 
 <img width="787" height="512" alt="image" src="https://github.com/user-attachments/assets/782e0e31-897f-4362-8252-117c58b03d06" />
 
@@ -52,173 +64,211 @@ Open your font's JSON file and add a `table` array. Each entry in the array is t
 
 <img width="133" height="46" alt="image" src="https://github.com/user-attachments/assets/0f52bd20-acd2-4af3-86a3-758363569812" />
 
-### 2. Make Font Tiles Available in VRAM
+### 2. Get the font tiles loaded
 
-There are two ways to ensure the font tiles are in VRAM at the right tile IDs:
+Two ways.
 
-**Option A — Include tiles in the common tileset**
+**Put them in the common tileset.** Add the letters to your project's common tileset image and
+GB Studio loads them in every scene. Set the `table` values to the positions they end up in.
 
-Add the font tiles directly to your project's common tileset image. GB Studio will load them into VRAM automatically on every scene. Set the `table` values to match the tile IDs those tiles occupy in VRAM.
-
-**Option B — Load font tiles at runtime with Alt Load Font tiles**
-
-Use the **Alt Load Font tiles** event in a scene's init script to copy the font's bitmap data into VRAM at a chosen tile offset. If the `table` values in the font JSON are not yet adjusted for the chosen offset, check the **Adjust font mapping with offset on compile** option — the compiler will add the offset value to every entry in the font's `table` array at build time.
+**Load them with Alt Load Font tiles.** Call the event in a scene's init script to copy the font
+into tiles starting at a position you choose. If the `table` values do not already account for that
+position, tick **Adjust font mapping with offset on compile** and the build adds the offset to
+every entry.
 
 <img width="728" height="174" alt="image" src="https://github.com/user-attachments/assets/b1a99eb2-289c-4e7c-8ec8-f344914a7aa3" />
 
-> **Important:** `Adjust font mapping with offset on compile` modifies the font table globally during compilation. It can only be applied **once per font** per build. If two events attempt to adjust the same font's table the compiler will throw an error. Either pre-bake the offset into the font JSON or ensure only one event applies the adjustment.
+> **Watch out:** the adjustment changes the font's table for the whole build, so it can be applied
+> once per font. Two events adjusting the same font stop the build with an error. Either bake the
+> offset into the font JSON or make sure only one event applies it.
 
-### 3. Use Alt Display Events
+### 3. Use the Alt events
 
-Replace standard **Display Text** and **Display Dialogue** events with their **Alt** counterparts. Set the font to the one whose `table` you have configured. The text will be rendered by looking up tile IDs from the table and writing them to the tilemap instead of going through the VWF renderer.
+Replace **Display Text** and **Display Dialogue** with their **Alt** versions, and set the font to
+the one you configured.
 
 ---
 
 ## Size Limits and Restrictions
 
-- **Tiles must be loaded before rendering.** If the font's tiles are not in VRAM at the expected positions when an Alt text event runs, the wrong tiles (or garbage) will be displayed.
-- **Fixed tile width only.** Because each character maps to exactly one tile (8×8 px), there is no variable-width support. Every character occupies one tile cell on the tilemap.
-- **Tile IDs wrap at 256.** The background tile region holds 256 tiles, so IDs outside 0–255 wrap around automatically.
-- **Adjust font mapping can only be applied once per font.** The offset adjustment changes the font's table at build time. Applying it from two different events for the same font in the same build causes a build error. If you need the same font loaded at different offsets in different scenes, create separate font assets or pre-bake the offsets into each font's JSON.
-- **Palette assignment behaves identically to standard text.** On Game Boy Color the current text palette and overlay priority are applied to the drawn tiles.
-- **All standard GB Studio text control codes are supported** — speed codes, goto and relative-goto positioning, wait-for-input, colour codes, newlines, scroll codes, and escape sequences all behave as in the standard renderer.
-- **No VRAM tile budget is consumed for rendering.** Because no bitmaps are written, the font tiles count against the tileset budget only if they are part of the common tileset (Option A). If loaded via Alt Load Font tiles they occupy whatever tile slots you assign.
+- **Tiles must be loaded first.** Alt text with its font tiles missing draws whatever happens to be
+  in those positions.
+- **One tile per character.** Every character takes one 8 by 8 cell. There is no width-based
+  spacing.
+- **Tile numbers wrap at 256.** The background area holds 256 tiles and numbers outside 0 to 255
+  wrap around.
+- **The offset adjustment applies once per font per build.** If the same font needs different
+  positions in different scenes, make separate font assets or bake the offsets into each font's
+  JSON.
+- **Palettes work as they do for standard text.** On Game Boy Color the current text palette and
+  priority apply to the drawn tiles.
+- **Every standard text code works**, including speed, positioning, waiting for input, colour, new
+  lines, scrolling and escapes.
+- **Drawing costs no tile slots.** The font tiles count against the tileset budget only when they
+  are part of the common tileset. Loaded with the event, they occupy whichever slots you assign.
 
 ---
 
 ## Events Reference
 
-All events are in the **Dialogue** or **Misc** group and are prefixed with **Alt**.
-
----
+All events are under **Dialogue** or **Misc**, each starting with **Alt**.
 
 ### Alt Menu
 
-**`EVENT_UI_ALT_MENU`** — group: Dialogue
+Group: **Dialogue**.
 
-A menu whose options are drawn by this plugin instead of GB Studio’s own text renderer,
-so they use the tiles already sitting in VRAM like the rest of its text. The stock **Menu**
-event draws its options through the stock renderer and ignores those tiles entirely.
+A menu whose options this plugin draws from the tiles already loaded, the same as its other text.
+The stock **Menu** event draws through the stock renderer and ignores those tiles.
 
-Everything else matches the stock menu: one row per option, the same window arithmetic,
-the same cursor, navigation and cancel flags. This plugin puts a line of text on a single
-tilemap row exactly as stock text does, so nothing here needs rescaling.
+Everything else matches the stock menu: one row per option, the same box sizing, the same cursor,
+navigation and cancel behaviour. Stock menus elsewhere in your project are unaffected.
 
 | Field | Description |
 |-------|-------------|
-| Set Variable To Selected Option | The chosen option’s number, counting from 1. Zero when the menu is cancelled. |
+| Set Variable To Selected Option | The chosen option's number, counting from 1. Zero when the menu is cancelled. |
 | Number Of Options | 2 to 8. |
-| Layout | Narrow reproduces the stock menu box on the right; Full width gives each option the whole screen. |
+| Layout | **Narrow** reproduces the stock menu box on the right. **Full width** gives each option the whole screen. |
 | Set To *n* If | The text of option *n*. |
-| Last Option Cancels | Choosing the final option sets the variable to 0 instead of its number. |
+| Last Option Cancels | Choosing the last option sets the variable to 0 instead of its number. |
 | Cancel On B Button | B closes the menu and sets the variable to 0. |
-
-Internally the event calls `ui_alt_menu`, a small native in front of this plugin’s own
-`ui_alt_ui_run_menu`, rather than emitting `VM_CHOICE`. `VM_CHOICE` always calls the stock
-`ui_run_menu`, whose loop would let the stock renderer paint over the options this plugin
-had just drawn. **The stock `ui_run_menu` itself is left completely alone**, so stock menus
-elsewhere in the project keep working exactly as before.
-
----
 
 ### Alt Load Font tiles
 
-**`EVENT_UI_ALT_LOAD_FONT`** — group: Misc
+Group: **Misc**.
 
-Copies a font's bitmap data into VRAM background tile slots starting at a given offset. Must be called before any Alt text event that relies on those tiles.
+Copies a font's tiles into the background tile area starting at a position you choose. Call it
+before any Alt text event that uses those tiles.
 
 | Field | Description |
 |-------|-------------|
-| Font | The GB Studio font asset to load. |
-| Offset | The VRAM tile slot index (0–255) to begin writing at. |
-| Length | Number of tiles to copy. Set to 0 to copy all tiles in the font. |
-| Adjust font mapping with offset on compile | When checked, the compiler adds the Offset value to every entry in the font's `table` array so tile IDs in the table align with the loaded position. Can only be applied once per font per build. |
-
----
+| Font | The font to load. |
+| Offset | The tile position to start writing at, 0 to 255. |
+| Length | How many tiles to copy. 0 copies the whole font. |
+| Adjust font mapping with offset on compile | Adds the offset to every entry in the font's table at build time. Once per font per build. |
 
 ### Alt Load and Display Text To Background Instantly
 
-**`EVENT_UI_ALT_DISPLAY_TEXT`** — group: Dialogue
+Group: **Dialogue**.
 
-Renders text directly to the **background** tilemap layer at the specified tile position, with no animation delay. The entire text string is written in a single frame.
+Draws text onto the scene background at a tile position, all in one frame.
 
 | Field | Description |
 |-------|-------------|
-| Text | The text to display. Supports standard GB Studio text formatting and control codes. |
-| X | Tile column on the background tilemap to begin writing (wraps at 32). |
-| Y | Tile row on the background tilemap to begin writing (wraps at 32). |
-
----
+| Text | The text to draw. The usual GB Studio formatting and codes apply. |
+| X | Column to start at, wrapping at 32. |
+| Y | Row to start at, wrapping at 32. |
 
 ### Alt Load and Display Text To Overlay
 
-**`EVENT_UI_ALT_DISPLAY_TEXT_OVERLAY`** — group: Misc
+Group: **Misc**.
 
-Renders text directly to the **window/overlay** tilemap layer at the specified tile position, with no animation delay.
+The same, drawing onto the overlay layer.
 
 | Field | Description |
 |-------|-------------|
-| Text | The text to display. |
-| X | Tile column on the overlay tilemap to begin writing (wraps at 32). |
-| Y | Tile row on the overlay tilemap to begin writing (wraps at 32). |
-
----
+| Text | The text to draw. |
+| X | Column to start at, wrapping at 32. |
+| Y | Row to start at, wrapping at 32. |
 
 ### Alt Display Loaded Text Instantly
 
-**`EVENT_UI_ALT_DISPLAY_LOADED_TEXT`** — group: Dialogue
+Group: **Dialogue**.
 
-Immediately renders whatever text was most recently loaded by a preceding event. Useful when the text is prepared by another mechanism and you want the Alt renderer to draw it. No text input field — it operates on the currently loaded text.
-
----
+Draws whatever text was last loaded, in one frame. It has no text field of its own.
 
 ### Alt Display Loaded Text At Various Speed
 
-**`EVENT_UI_ALT_DISPLAY_LOADED_TEXT_SPEED`** — group: Dialogue
+Group: **Dialogue**.
 
-Renders the currently loaded text using the dialogue-speed system: it respects the text speed setting, the fast-forward input and text sound effects, and yields each frame so other game systems keep updating. No text input field — it operates on the currently loaded text.
-
----
+Draws the last loaded text at the player's text speed, with fast-forward and text sounds, letting
+the rest of the game run between characters. It has no text field of its own.
 
 ### Alt Display Text In Dialogue
 
-**`EVENT_UI_ALT_DISPLAY_TEXT_DIALOGUE`** — group: Dialogue
+Group: **Dialogue**.
 
-A full drop-in replacement for the standard **Display Text** dialogue event. Opens the overlay dialogue window, animates it in, renders the text through the Alt renderer (respecting text speed and fast-forward), then animates the window out. Supports multiple text pages, avatars, layout customisation, and all standard dialogue behaviour options.
+A full replacement for the standard **Display Text** dialogue event. It opens the dialogue box,
+slides it in, draws the text at the player's speed with fast-forward, and slides it out. Multiple
+pages, avatars and layout options all work.
 
 **Text tab**
 
 | Field | Description |
 |-------|-------------|
-| Text | One or more pages of text. Each page is rendered in sequence. |
-| Avatar | Optional avatar sprite shown to the left of the text. |
+| Text | One or more pages, shown in order. |
+| Avatar | Optional portrait shown to the left of the text. |
 
 **Layout tab**
 
 | Field | Description |
 |-------|-------------|
-| Min Height | Minimum height of the dialogue box in tiles. Default: 4. |
-| Max Height | Maximum height of the dialogue box in tiles. Default: 7. |
-| Text X / Text Y | Tile offset of the text cursor inside the dialogue box. Default: 1, 1. |
-| Text Scroll Height | Maximum lines of text visible before the box scrolls. |
-| Position | `Bottom` (default) or `Top` of the screen. |
-| Clear Previous | Whether to clear the dialogue box before rendering each page. |
-| Show Frame | Whether to draw the UI frame border around the box. |
+| Min Height | Smallest box height in tiles. Default 4. |
+| Max Height | Largest box height in tiles. Default 7. |
+| Text X / Text Y | Where the text starts inside the box. Default 1, 1. |
+| Text Scroll Height | How many lines are visible before the box scrolls. |
+| Position | **Bottom**, the default, or **Top**. |
+| Clear Previous | Clear the box before each page. |
+| Show Frame | Draw the border around the box. |
 
 **Behavior tab**
 
 | Field | Description |
 |-------|-------------|
-| Speed In / Speed Out | Overlay slide-in and slide-out animation speed. |
-| Close When | `Button Pressed` (default), `Text Finished` (auto-close after a delay), or `Never (non-modal)`. |
-| Close Button | Which button closes the dialogue: A, B, or Any. |
-| Close Delay | When closing on text finished, the number of frames/seconds to wait before closing. |
+| Speed In / Speed Out | How fast the box slides in and out. |
+| Close When | **Button Pressed**, the default, **Text Finished** to close after a delay, or **Never** to leave it open while the game continues. |
+| Close Button | A, B or Any. |
+| Close Delay | How long to wait before closing when set to close on text finished. |
+
+---
+
+## FAQ
+
+**My scene runs out of tiles when text appears. Does this help?**
+Yes, and that is the main reason to use it. Standard text takes a tile slot per unique letter on
+screen. These events take none, because the letters are already loaded.
+
+**How do I use a pixel-exact fixed-width font?**
+Put the font's tiles in your common tileset, write the mapping into the font's JSON, and use the
+Alt events. Every character occupies exactly one cell.
+
+**My text came out as scenery tiles or noise.**
+The font tiles are not where the mapping says they are. Either the common tileset moved them, or
+the **Alt Load Font tiles** offset does not match the numbers in the font's table.
+
+**What is the table in the font JSON?**
+A list of tile numbers. Entry 65 is the tile that shows the letter A, entry 66 shows B, and so on.
+The Alt events look up each character there.
+
+**Do I have to edit JSON by hand?**
+Yes, once per font. After that the font works like any other in the editor.
+
+**Can I still use avatars, multiple pages and the usual dialogue options?**
+Yes. **Alt Display Text In Dialogue** carries the full set of layout and behaviour options.
+
+**Can letters share tiles with the scenery?**
+Yes. Put both in the common tileset and point the font's table at the shared tiles. A wall tile can
+double as a letter if it happens to look right.
+
+**Why does the build fail with an error about the font offset?**
+Two events tried to apply the offset adjustment to the same font. Only one may. Bake the offset
+into the JSON, or make a second font asset.
+
+**Can I mix Alt text and standard text in one project?**
+Yes. The stock events keep working, and the stock menu is untouched.
+
+**Does variable-width text work?**
+No. Each character is one tile. Use the standard renderer where you need width-based spacing.
+
+**Does it work with the ContinuousScene or ScreenScroll plugins?**
+Yes. Compatibility variants ship for both.
 
 ---
 
 ## Memory Footprint
 
-Measured against the stock GB Studio **4.3.0-e1** engine by `measure_plugin_memory.js` (per-file SDCC compile with GB Studio's own build flags, at default engine settings; report of 2026-08-13). Figures are this plugin's *delta* versus stock — a file that replaces a stock engine file counts only the difference, which is why a plugin can come out negative. Using the plugin's events additionally compiles a few bytes of GBVM script per call into your project's script banks, on top of the fixed cost below.
+Measured against the stock GB Studio **4.3.0-e1** engine at default engine settings, report of
+2026-08-13. Figures are the difference against a stock project. Each event you use also compiles a
+few bytes of script into your project, on top of the fixed cost below.
 
 | Budget | Cost |
 |---|---|
@@ -226,10 +276,13 @@ Measured against the stock GB Studio **4.3.0-e1** engine by `measure_plugin_memo
 | WRAM | +10 bytes |
 | Banked ROM | +1,994 bytes |
 
-- **Bank 0:** nothing. Every function the plugin adds is compiled into a switchable ROM bank.
-- **WRAM:** 10 bytes of alternate text-rendering state.
-- **Banked ROM:** 1,994 bytes for the alternate renderer and the menu variant.
-- **Engine WRAM headroom:** a stock GB Studio 4.3.0 project leaves about **854 bytes** of WRAM free (usable engine WRAM is 7,776 bytes at 0xC0A0–0xDF00; the stock engine uses 6,922). With this plugin installed roughly **844 bytes** remain. That does not change with the number of global variables your project defines: the script memory array is a fixed 3,584 bytes at stock engine settings (VM_HEAP_SIZE + VM_MAX_CONTEXTS × VM_CONTEXT_STACK_SIZE = 768 + 16 × 64 words).
+- **Bank 0:** nothing. Everything the plugin adds is compiled into a switchable ROM bank.
+- **WRAM:** 10 bytes to track the drawing position.
+- **Banked ROM:** 1,994 bytes for the renderer and the menu.
+- **Engine WRAM headroom:** a stock GB Studio 4.3.0 project leaves about **854 bytes** of WRAM
+  free (the engine has 7,776 bytes to work with and uses 6,922 of them). With this plugin
+  installed roughly **844 bytes** remain. Adding more global variables to your project does not
+  change that figure, because script memory is a fixed 3,584 byte block at stock engine settings.
 - **SRAM:** not used.
 
 ---
@@ -237,17 +290,16 @@ Measured against the stock GB Studio **4.3.0-e1** engine by `measure_plugin_memo
 <!-- BANK0:BEGIN -->
 ## Bank 0 (HOME) Usage
 
-Bank 0 is the 16 KB non-switchable ROM bank that the GB Studio engine core,
-the interrupt handlers and the GBDK runtime all share. Banked ROM is cheap
-(add another bank), bank 0 is not, so it is usually the first thing a project
-runs out of.
+Bank 0 is the 16 KB fixed ROM bank shared by the GB Studio engine core, the
+interrupt handlers and the GBDK runtime. Extra banked ROM is cheap to add,
+bank 0 is not, so bank 0 is usually the first thing a project runs out of.
 
 | | Bytes |
 |---|---|
 | Bank 0 used by this plugin | **0** |
 
-**This plugin costs nothing in bank 0.** Every one of its functions is compiled
-into a switchable ROM bank; nothing it adds is resident in bank 0.
+**This plugin costs nothing in bank 0.** Everything it adds is compiled into a
+switchable ROM bank.
 <!-- BANK0:END -->
 
 ## Changelog
@@ -255,28 +307,29 @@ into a switchable ROM bank; nothing it adds is resident in bank 0.
 Grouped by the date each change was merged into the official
 [gb-studio-plugins](https://github.com/gb-studio-dev/gb-studio-plugins) repository.
 
-Only bug fixes, new features and feature changes are listed. Engine version
-bumps, patch regeneration, packaging fixes and documentation edits are omitted.
+Only bug fixes, new features and feature changes are listed. Engine version bumps, patch
+regeneration, packaging fixes and documentation edits are omitted.
 
 ### 2026-08-08
 
-- Added the Alt Menu: menu options are drawn by the plugin from tiles already resident in VRAM, leaving the stock `ui_run_menu` untouched.
+- Added the Alt Menu, whose options are drawn from tiles already loaded. The stock menu is
+  untouched.
 
 ### 2026-08-02
 
-- Added scrolling support to the alt text display.
+- Added scrolling to the alt text display.
 
 ### 2026-06-28
 
-- Added ContinuousScene and ScreenScroll plugin compatibility.
-- Added custom script parameter / stack support to the events.
+- Added ContinuousScene and ScreenScroll compatibility.
+- Added custom script parameter and stack support to the events.
 
 ### 2026-06-08
 
-- New font loading feature, using the font's `.json` for tile mapping.
+- Added font loading, using the font's JSON for the tile mapping.
 
 ### 2025-02-24
 
 - Initial release.
 - Fixed performance issues.
-- Added text scroll support.
+- Added text scrolling.
